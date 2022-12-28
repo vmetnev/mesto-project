@@ -1,0 +1,33 @@
+.popup {
+    display: none;
+    background-color: #FFFFFF;
+    color: #000000;
+    width: 430px;
+    height: 330px;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border-radius: 10px;
+    position: fixed;
+    top: calc(50vh - 165px);
+    left: calc(50% - 215px);
+    z-index: 2;
+}
+
+
+@media screen and (max-width:879px) {
+    .popup {
+        width: 282px;
+        height: 322px;
+        top: calc(50vh - 141px);
+        left: calc(50% - 161px + 20px);
+    }
+}
+
+@media screen and (max-width:320px) {
+    .popup {
+        min-width: 282px;
+        left: 19px;
+        top: 123px;
+    }
+}

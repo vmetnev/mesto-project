@@ -1,0 +1,32 @@
+.popup__name {
+    display: block;
+    box-sizing: border-box;
+    width: 358px;
+    margin: 54px auto 0 auto;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    height: 27px;
+    padding-bottom: 13px;
+    color: #000000;
+}
+
+
+.popup__name:focus {
+    outline: none;
+}
+
+
+@media screen and (max-width:879px) {
+    .popup__name {
+        width: 238px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        margin: 75px auto 0 auto;
+    }
+}

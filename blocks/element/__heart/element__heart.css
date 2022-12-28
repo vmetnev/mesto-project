@@ -1,0 +1,14 @@
+.element__heart {
+    display: inline-block;
+    position: absolute;
+    background-image: url('/images/heart-regular.png');
+    width: 22px;
+    height: 19px;
+    top: 30px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.element__heart:hover {
+    background-image: url('/images/heart-hover.png');
+}

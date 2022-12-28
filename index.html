@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проект "Место"</title>
+    <link rel="stylesheet" href="./pages/index.css">
+
+</head>
+
+<body class="page">
+
+    <header class="header">
+        <img class="header__logo" src="./images/logo.png" alt="логотип">
+    </header>
+
+    <main class="main">
+
+        <section class="profile">
+
+            <img src="./images/image.png" alt="фото-жак-ив-кусто" class="profile__avatar">
+            <article class="profile__info">
+                <h1 class="profile__title">Жак-Ив Кусто<button class="profile__edit-button"></button></h1>
+
+                <p class="profile__text">Исследователь океана</p>
+            </article>
+            <button class="profile__add-button"></button>
+        </section>
+        <section class="elements">
+
+            <article class="element">
+                <img src="./images/karachaevsk.png" alt="фото-карачаевск-1" class="element__image">
+                <p class="element__text">Карачаевск<span class="element__heart"></span></p>
+            </article>
+            <article class="element">
+                <img src="./images/elbrus.png" alt="фото-гора-эльбрус-1" class="element__image">
+                <p class="element__text">Гора Эльбрус<span class="element__heart"></span></p>
+            </article>
+            <article class="element">
+                <img src="./images/Dombai 1.png" alt="фото-домбай-1" class="element__image">
+                <p class="element__text">Домбай<span class="element__heart"></span></p>
+            </article>
+            <article class="element">
+                <img src="./images/elbrus 1.png" alt="фото-гора-эльбрус-2" class="element__image">
+                <p class="element__text">Гора Эльбрус<span class="element__heart"></span></p>
+            </article>
+
+            <article class="element">
+                <img src="./images/Dombai2.png" alt="фото-домбай-2" class="element__image">
+                <p class="element__text">Домбай<span class="element__heart"></span></p>
+            </article>
+            <article class="element">
+                <img src="./images/karachaevsk 2.png" alt="фото-карачаевск-2" class="element__image">
+                <p class="element__text">Карачаево-Ч...<span class="element__heart"></span></p>
+            </article>
+        </section>
+
+
+        <section class="popup">
+            <form class="popup__form">
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <input type="text" class="popup__name" value="Жак-Ив Кусто">
+                <input type="text" class="popup__profession" value="Исследователь океана">
+                <input type="submit" id="submit" class="popup__submit" value="Сохранить">
+                <input type="reset" class="popup__cancel" value="">
+            </form>
+        </section>
+
+        <div class="overlay"></div>
+
+    </main>
+
+    <footer class="footer">
+        <p class="footer">© 2020 Mesto Russia</p>
+    </footer>
+    <script src="./scripts/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+.popup__profession {
+    border: none;
+    box-sizing: border-box;
+    border-bottom: 1px solid lightgray;
+    display: block;
+    width: 358px;
+    margin: 30px auto 0 auto;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    padding-bottom: 13px;
+    color: #000000;
+}
+
+.popup__profession:focus {
+    outline: none;
+}
+
+@media screen and (max-width:879px) {
+    .popup__profession {
+        width: 238px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+    }
+}
