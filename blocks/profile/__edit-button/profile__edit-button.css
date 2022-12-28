@@ -6,7 +6,7 @@
     background-color: #000000;
     border: 1px solid #FFFFFF;
     border-radius: 0;
-    background-image: url('/images/add-button-pic.png');
+    background-image: url('../../../images/add-button-pic.png');
     background-repeat: no-repeat;
     background-size: 10px;
     background-position: center;

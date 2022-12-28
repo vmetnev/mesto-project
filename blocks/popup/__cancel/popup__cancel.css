@@ -5,7 +5,7 @@
     height: 32px;
     border: none;
     background-color: transparent;
-    background-image: url('/images/cancel-regular.png');
+    background-image: url('../../../images/cancel-regular.png');
     position: absolute;
     top: -40px;
     right: -40px;
@@ -13,7 +13,7 @@
 }
 
 .popup__cancel:hover {
-    background-image: url('/images/cancel-hover.png');
+    background-image: url('../../../images/cancel-hover.png');
 }
 
 @media screen and (max-width:879px) {
