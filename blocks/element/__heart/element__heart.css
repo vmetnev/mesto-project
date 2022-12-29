@@ -1,14 +1,21 @@
 .element__heart {
-    display: inline-block;
-    position: absolute;
-    background-image: url('/images/heart-regular.png');
+    display: inline;
+    background-image: url('../../../images/heart-regular.png');
     width: 22px;
     height: 19px;
-    top: 30px;
-    right: 20px;
     cursor: pointer;
+    border: none;
+    background-color: transparent;
+    float: right;
+    margin-right: 30px;
+    margin-top: 4px;
 }
 
 .element__heart:hover {
-    background-image: url('/images/heart-hover.png');
+    opacity: 0.5;
+}
+
+.element__heart:active {
+    background-image: url('../../../images/heart-active.png');
+    opacity: 1;
 }

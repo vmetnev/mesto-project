@@ -63,8 +63,3 @@
 @import url('../blocks/popup/__profession/popup__profession.css');
 @import url('../blocks/popup/__submit/popup__submit.css');
 @import url('../blocks/popup/__title/popup__title.css');
-
-/* -------------------------------------------------------------------------------- */
-/* OVERLAY */
-/* -------------------------------------------------------------------------------- */
-@import url('../blocks/overlay/overlay.css');

@@ -1,4 +1,6 @@
 .popup {
+    /* display: block; */
+
     display: none;
     background-color: #FFFFFF;
     color: #000000;
