@@ -11,3 +11,11 @@
         height: auto;
     }
 }
+
+
+@media screen and (max-width:320px) {
+    .element__image {
+        width: 282px;
+        height: 282px;
+    }
+}

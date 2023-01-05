@@ -1,14 +1,12 @@
 .element__heart {
-    display: inline;
-    background-image: url('../../../images/heart-regular.png');
+    background-image: url('../../../images/heart-regular.svg');
     width: 22px;
     height: 19px;
     cursor: pointer;
     border: none;
     background-color: transparent;
-    float: right;
-    margin-right: 30px;
-    margin-top: 4px;
+    margin-top: 30px;
+    margin-right: 20px;
 }
 
 .element__heart:hover {

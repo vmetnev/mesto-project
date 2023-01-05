@@ -1,10 +1,6 @@
 .footer {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    color: #545454;
-    width: 880px;
-    margin: 66px auto 36px auto;
+    max-width: 880px;
+    margin: 68px auto 36px auto;
     box-sizing: border-box;
 }
 
@@ -16,9 +12,7 @@
 
 @media screen and (max-width:320px) {
     .footer {
-        font-size: 14px;
-        line-height: 17px;
         width: 282px;
-        margin: 52px auto 36px auto;
+        margin: 48px 19px 36px 19px;
     }
 }

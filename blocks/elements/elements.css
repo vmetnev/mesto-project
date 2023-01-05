@@ -1,7 +1,7 @@
 .elements {
     padding: 0;
     box-sizing: border-box;
-    width: 880px;
+    max-width: 880px;
     margin: 51px auto 0 auto;
     column-gap: 17px;
     row-gap: 20px;
@@ -27,7 +27,7 @@
 
 @media screen and (max-width:320px) {
     .elements {
-        width: 282px;
+        max-width: 282px;
         margin-top: 38px;
     }
 }

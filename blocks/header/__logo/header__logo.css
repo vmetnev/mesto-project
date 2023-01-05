@@ -2,7 +2,7 @@
     box-sizing: border-box;
     width: 142px;
     height: 33px;
-    margin-bottom: 0 0 41px 0;
+    margin: 0 0 41px 0;
 }
 
 @media screen and (max-width:1279px) {
@@ -20,7 +20,7 @@
     .header__logo {
         width: 103.74px;
         height: 24.4px;
-        margin-left: 27px;
+        margin-left: 22px;
         margin-bottom: 31.6px;
     }
 }
