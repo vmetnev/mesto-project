@@ -9,18 +9,17 @@
     margin: 0;
     border-radius: 10px;
     position: fixed;
-    top: calc(50vh - 165px);
+    top: 195px;
     left: calc(50% - 215px);
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     z-index: 0;
 }
 
-
 @media screen and (max-width:879px) {
     .popup {
         width: 282px;
         height: 322px;
-        top: calc(50vh - 141px);
+        top: 195px;
         left: calc(50% - 161px + 20px);
     }
 }

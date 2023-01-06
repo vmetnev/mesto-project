@@ -2,7 +2,7 @@
     box-sizing: border-box;
     width: 142px;
     height: 33px;
-    margin: 0 0 41px 0;
+    margin-bottom: 36px;
 }
 
 @media screen and (max-width:1279px) {

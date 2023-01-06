@@ -22,81 +22,79 @@
             <img src="./images/image.png" alt="фото-жак-ив-кусто" class="profile__avatar">
             <div class="profile__info">
                 <div class="profile__top">
-                    <h1 class="profile__title">Жак-Ив Кусто</h1><button type="button"
-                        class="profile__edit-button"></button>
+                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <button type="button" class="profile__edit-button"></button>
                 </div>
-                <h3 class="profile__text">Исследователь океана</h3>
+                <p class="profile__text">Исследователь океана</p>
             </div>
             <button type="button" class="profile__add-button"></button>
         </section>
 
         <section class="elements">
-
             <article class="element">
                 <img src="./images/karachaevsk.png" alt="фото-карачаевск-1" class="element__image">
                 <div class="element__info">
-                    <h3 class="element__text">Карачаевск</h3><button type="button" class="element__heart"></button>
+                    <h2 class="element__text">Карачаевск</h2>
+                    <button type="button" class="element__heart"></button>
                 </div>
-
             </article>
-
             <article class="element">
                 <img src="./images/elbrus.png" alt="фото-гора-эльбрус-1" class="element__image">
                 <div class="element__info">
-                    <h3 class="element__text">Гора Эльбрус</h3><button type="button" class="element__heart"></button>
+                    <h2 class="element__text">Гора Эльбрgrwgwgregwrgwgwrgwgwgус</h2>
+                    <button type="button" class="element__heart"></button>
                 </div>
-
             </article>
-
             <article class="element">
                 <img src="./images/Dombai1.png" alt="фото-домбай-1" class="element__image">
                 <div class="element__info">
-                    <h3 class="element__text">Домбай</h3><button type="button" class="element__heart"></button>
+                    <h2 class="element__text">Домбай</h2>
+                    <button type="button" class="element__heart"></button>
                 </div>
-
             </article>
-
             <article class="element">
                 <img src="./images/elbrus1.png" alt="фото-гора-эльбрус-2" class="element__image">
                 <div class="element__info">
-                    <h3 class="element__text">Гора Эльбрус</h3><button type="button" class="element__heart"></button>
+                    <h2 class="element__text">Гора Эльбрус</h2>
+                    <button type="button" class="element__heart"></button>
                 </div>
-
             </article>
-
             <article class="element">
                 <img src="./images/Dombai2.png" alt="фото-домбай-2" class="element__image">
                 <div class="element__info">
-                    <h3 class="element__text">Домбай </h3><button type="button" class="element__heart"></button>
+                    <h2 class="element__text">Домбай </h2><button type="button" class="element__heart"></button>
                 </div>
-
             </article>
-
             <article class="element">
                 <img src="./images/karachaevsk2.png" alt="фото-карачаевск-2" class="element__image">
                 <div class="element__info">
-                    <h3 class="element__text">Карачаево-Ч...</h3><button type="button" class="element__heart"></button>
+                    <h2 class="element__text">Карачаево-Ч...</h2>
+                    <button type="button" class="element__heart"></button>
                 </div>
             </article>
-
         </section>
 
-        <div class="popup">
-            <!-- <div class="popup popup_opened"> -->
-            <form class="popup__form" name="form-edit-profile">
-                <legend class="popup__title">Редактировать профиль</legend>
-                <fieldset class="popup__fieldset">
-                    <input type="text" class="popup__name" name="form-name" value="Жак-Ив Кусто">
-                    <input type="text" class="popup__profession" name="form-profession" value="Исследователь океана">
-                    <input type="submit" id="submit" class="popup__submit" value="Сохранить">
-                    <input type="button" class="popup__cancel" value="">
-                </fieldset>
-            </form>
+        <!-- <div class="popup"> -->
+        <div class="popup popup_opened">
+            <div class="popup__container">
+                <form class="popup__form" name="form-edit-profile">
+                    <h3 class="popup__title">Редактировать профиль</h3>
+                    <fieldset class="popup__fieldset">
+                        <input type="text" class="popup__input popup__name" name="form-name" value="Жак-Ив Кусто">
+                        <input type="text" class="popup__input popup__profession" name="form-profession"
+                            value="Исследователь океана">
+                    </fieldset>
+                    <button type="submit" id="submit" class="popup__submit">Сохранить</button>
+                    <button type="button" class="popup__cancel" value=" "></button>
+                </form>
+            </div>
         </div>
     </main>
+
     <footer class="footer">
         <p class="footer__text">© 2020 Mesto Russia</p>
     </footer>
+
 </body>
 
 </html>

@@ -2,7 +2,7 @@
     display: block;
     box-sizing: border-box;
     width: 358px;
-    margin: 54px auto 0 auto;
+    margin: 50px auto 0 auto;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     font-style: normal;
@@ -10,10 +10,9 @@
     font-size: 14px;
     line-height: 17px;
     height: 27px;
-    padding-bottom: 13px;
+    padding: 0 0 13px 0;
     color: #000000;
 }
-
 
 .popup__name:focus {
     outline: none;
@@ -23,7 +22,15 @@
 @media screen and (max-width:879px) {
     .popup__name {
         width: 238px;
-        font-size: 14px;
         margin: 75px auto 0 auto;
+    }
+}
+
+
+
+@media screen and (max-width:879px) {
+    .popup__name {
+        margin-top: 75px;
+        padding-bottom: 13px;
     }
 }

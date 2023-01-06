@@ -3,7 +3,7 @@
     border-bottom-left-radius: 10px 10px;
     border-bottom-right-radius: 10px 10px;
     background-color: transparent;
-    height: 79px;
+    min-height: 79px;
     background-color: #FFFFFF;
     color: #000000;
     display: flex;
@@ -12,7 +12,6 @@
     margin: 0;
     padding: 0;
 }
-
 
 @media screen and (max-width:320px) {
     .element__info {
