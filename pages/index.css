@@ -63,7 +63,7 @@
 @import url('../blocks/popup/__cancel/popup__cancel.css');
 @import url('../blocks/popup/__submit/popup__submit.css');
 @import url('../blocks/popup/__title/popup__title.css');
-@import url('../blocks/popup/__opened/popup__opened.css');
+@import url('../blocks/popup/_opened/popup_opened.css');
 @import url('../blocks/popup/__fieldset/popup__fieldset.css');
 @import url('../blocks/popup/__input/popup__input.css');
 @import url('../blocks/popup/__container/popup__container.css');

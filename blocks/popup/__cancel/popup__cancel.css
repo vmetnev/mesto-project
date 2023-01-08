@@ -6,10 +6,11 @@
     border: none;
     background-color: transparent;
     background-image: url('../../../images/cancel-regular.svg');
-    position: absolute;
-    top: -40px;
-    right: -40px;
+    position: relative;
+    top: -368px;
+    right: -440px;
     cursor: pointer;
+    z-index: 3;
 }
 
 .popup__cancel:hover {
@@ -20,8 +21,8 @@
     .popup__cancel {
         width: 20px;
         height: 20px;
-        right: 0;
-        top: -36px;
         background-size: 20px;
+        top: -382px;
+        right: -263px;
     }
 }

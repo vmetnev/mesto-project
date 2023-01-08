@@ -9,13 +9,18 @@
     .header {
         width: calc(320px + 560 * ((100% - 320px)/960));
         margin-top: calc(28px + 17 * ((100% - 320px)/960));
-        max-width: 100%;
+    }
+}
+
+@media screen and (max-width:878px) {
+    .header {
+        width: calc(282px + 598 * ((100% - 320px)/960));
     }
 }
 
 @media screen and (max-width:320px) {
     .header {
-        max-width: 320px;
+        width: 95%;
         margin-top: 28px;
     }
 }
