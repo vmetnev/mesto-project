@@ -11,17 +11,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 195px;
+    min-height: 330px;
+    position: relative;
 }
 
 @media screen and (max-width:879px) {
     .popup__container {
         width: 282px;
-    }
-}
-
-@media screen and (max-width:320px) {
-    .popup__container {
-        margin: 123px auto;
+        min-height: 322px;
     }
 }

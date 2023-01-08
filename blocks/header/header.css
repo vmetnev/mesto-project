@@ -20,7 +20,7 @@
 
 @media screen and (max-width:320px) {
     .header {
-        width: 95%;
-        margin-top: 28px;
+        display: flex;
+        margin: 28px 0 0 27px;
     }
 }

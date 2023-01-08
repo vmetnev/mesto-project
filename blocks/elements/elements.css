@@ -27,7 +27,8 @@
 
 @media screen and (max-width:320px) {
     .elements {
-        width: 282px;
+        width: 100%;
+        max-width: 282px;
         margin: 38px auto 0 auto;
     }
 }

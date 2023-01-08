@@ -3,7 +3,7 @@
     width: 358px;
     height: 50px;
     padding: 0;
-    margin: 48px auto 37px auto;
+    margin: 48px auto 0 auto;
     border: none;
     background-color: #000000;
     color: #FFFFFF;
@@ -25,6 +25,6 @@
         height: 46px;
         font-size: 14px;
         line-height: 17px;
-        margin: 45px auto 25px auto;
+        margin: 45px auto 0 auto;
     }
 }
