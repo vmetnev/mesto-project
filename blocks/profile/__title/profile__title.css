@@ -29,6 +29,5 @@
 @media screen and (max-width:320px) {
     .profile__title {
         margin: 7px 0 0 28px;
-        line-height: 33px;
     }
 }
