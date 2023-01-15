@@ -49,6 +49,7 @@
 @import url('../blocks/element/__image/element__image.css');
 @import url('../blocks/element/__text/element__text.css');
 @import url('../blocks/element/__info/element__info.css');
+@import url('../blocks/element/__delete/element__delete.css');
 
 /* -------------------------------------------------------------------------------- */
 /* FOOTER */
