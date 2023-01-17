@@ -71,6 +71,9 @@
 @import url('../blocks/popup/__input/popup__input.css');
 @import url('../blocks/popup/__container/popup__container.css');
 
+@import url('../blocks/popup/_fadein/popup_fadein.css');
+@import url('../blocks/popup/_fadeout/popup_fadeout.css');
+
 
 /* -------------------------------------------------------------------------------- */
 /* NEWITEM */
@@ -86,6 +89,10 @@
 @import url('../blocks/new-item/__container/new-item__container.css');
 
 
+@import url('../blocks/new-item/_fadein/new-item_fadein.css');
+@import url('../blocks/new-item/_fadeout/new-item_fadeout.css');
+
+
 /* -------------------------------------------------------------------------------- */
 /* VIEW */
 /* -------------------------------------------------------------------------------- */
@@ -95,3 +102,6 @@
 @import url('../blocks/view/__image/view__image.css');
 @import url('../blocks/view/__text/view__text.css');
 @import url('../blocks/view/_opened/view_opened.css');
+
+@import url('../blocks/view/_fadein/view_fadein.css');
+@import url('../blocks/view/_fadeout/view_fadeout.css');

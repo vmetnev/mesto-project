@@ -7,6 +7,13 @@ btnAdd.addEventListener('click', btnAddHandler)
 
 function btnAddHandler() {
     document.querySelector('.new-item').classList.add('new-item_opened')
+
+    document.querySelector('.new-item').classList.remove('new-item_fadeout')
+    document.querySelector('.new-item').classList.add('new-item_fadein')
+
+
+
+
     const addForm = document.querySelector('.new-item')
 
     addForm.querySelector('.new-item__submit').addEventListener('click', btnAddFormSubmitHandler)
@@ -70,7 +77,14 @@ function btnAddHandler() {
             addForm.querySelector('input[name="item-link"]').value = ""
             addForm.querySelector('.new-item__submit').removeEventListener('click', btnAddFormSubmitHandler)
             addForm.querySelector('.new-item__cancel').removeEventListener('click', btnAddFormCancelHandler)
-            document.querySelector('.new-item').classList.remove('new-item_opened')
+            
+            document.querySelector('.new-item').classList.remove('new-item_fadein')
+            document.querySelector('.new-item').classList.add('new-item_fadeout')
+            setTimeout(function () {
+                document.querySelector('.new-item').classList.remove('new-item_opened')
+            }, 900)
+        
+
         }
     }
 
@@ -80,6 +94,12 @@ function btnAddHandler() {
         document.querySelector('input[name="item-link"]').classList.remove('new-item__input_animate')
         addForm.querySelector('.new-item__submit').removeEventListener('click', btnAddFormSubmitHandler)
         addForm.querySelector('.new-item__cancel').removeEventListener('click', btnAddFormCancelHandler)
-        document.querySelector('.new-item').classList.remove('new-item_opened')
+        
+        
+        document.querySelector('.new-item').classList.remove('new-item_fadein')
+        document.querySelector('.new-item').classList.add('new-item_fadeout')
+        setTimeout(function () {
+            document.querySelector('.new-item').classList.remove('new-item_opened')
+        }, 900)
     }
 }

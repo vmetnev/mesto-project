@@ -1,4 +1,3 @@
-
 // ####################################################################
 // ########## PROFILE EDIT                            #################
 // ####################################################################
@@ -9,6 +8,8 @@ btnEdit.addEventListener('click', btnEditHandler)
 function btnEditHandler() {
 
     document.querySelector('.popup').classList.add('popup_opened')
+    document.querySelector('.popup').classList.remove('popup_fadeout')
+    document.querySelector('.popup').classList.add('popup_fadein')
     const editForm = document.querySelector('.popup')
 
     let profileName = document.querySelector('.profile__title').textContent
@@ -21,13 +22,23 @@ function btnEditHandler() {
 
     function btnFormSubmitHandler(evt) {
         evt.preventDefault()
+
         let newName = editForm.querySelector('input[name="form-name"]').value
         let newProfession = editForm.querySelector('input[name="form-profession"]').value
         document.querySelector('.profile__title').textContent = newName
         document.querySelector('.profile__text').textContent = newProfession
+
         editForm.querySelector('.popup__submit').removeEventListener('click', btnFormSubmitHandler)
         editForm.querySelector('.popup__cancel').removeEventListener('click', btnFormEditCancelHandler)
-        document.querySelector('.popup').classList.remove('popup_opened')
+        console.log('here')
+
+        document.querySelector('.popup').classList.remove('popup_fadein')
+        document.querySelector('.popup').classList.add('popup_fadeout')
+        setTimeout(function () {
+            document.querySelector('.popup').classList.remove('popup_opened')
+        }, 900)
+
+
     }
 
     function btnFormEditCancelHandler() {
@@ -35,8 +46,13 @@ function btnEditHandler() {
         document.querySelector('.profile__text').textContent = profileProfession
         editForm.querySelector('.popup__submit').removeEventListener('click', btnFormSubmitHandler)
         editForm.querySelector('.popup__cancel').removeEventListener('click', btnFormEditCancelHandler)
-        document.querySelector('.popup').classList.remove('popup_opened')
+
+        document.querySelector('.popup').classList.remove('popup_fadein')
+        document.querySelector('.popup').classList.add('popup_fadeout')
+        setTimeout(function () {
+            document.querySelector('.popup').classList.remove('popup_opened')
+        }, 900)
+
+
     }
 }
-
-
