@@ -36,6 +36,7 @@ initialCards.forEach((item) => {
   cardInstance.querySelector('.element__text').textContent = item.name
   cardInstance.querySelector('.element__image').src = item.link
   cardInstance.querySelector('.element__image').alt = item.name
+  cardInstance.querySelector('.element__image').addEventListener('click', viewImage)
   cardInstance.querySelector('.element__delete').addEventListener('click', deleteCard)
   cardInstance.querySelector('.element__heart').addEventListener('click', likeCard)
   document.querySelector('.elements').appendChild(cardInstance)

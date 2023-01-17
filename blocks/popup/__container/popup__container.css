@@ -10,8 +10,7 @@
     z-index: 0;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    /* min-height: 330px; */
+    align-items: center;    
     position: relative;
 }
 

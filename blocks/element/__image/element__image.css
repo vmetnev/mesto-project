@@ -8,7 +8,9 @@
 @media screen and (max-width:879px) {
     .element__image {
         width: 100%;
+        aspect-ratio: 1/1;
         height: auto;
+
     }
 }
 
@@ -17,5 +19,6 @@
     .element__image {
         width: 282px;
         height: 282px;
+
     }
 }
