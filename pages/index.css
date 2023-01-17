@@ -46,10 +46,12 @@
 
 @import url('../blocks/element/element.css');
 @import url('../blocks/element/__heart/element__heart.css');
+@import url('../blocks/element/__heart/_active/element__heart_active.css');
 @import url('../blocks/element/__image/element__image.css');
 @import url('../blocks/element/__text/element__text.css');
 @import url('../blocks/element/__info/element__info.css');
 @import url('../blocks/element/__delete/element__delete.css');
+
 
 /* -------------------------------------------------------------------------------- */
 /* FOOTER */
@@ -68,3 +70,17 @@
 @import url('../blocks/popup/__fieldset/popup__fieldset.css');
 @import url('../blocks/popup/__input/popup__input.css');
 @import url('../blocks/popup/__container/popup__container.css');
+
+
+/* -------------------------------------------------------------------------------- */
+/* NEWITEM */
+/* -------------------------------------------------------------------------------- */
+@import url('../blocks/new-item/new-item.css');
+@import url('../blocks/new-item/__cancel/new-item__cancel.css');
+@import url('../blocks/new-item/__submit/new-item__submit.css');
+@import url('../blocks/new-item/__title/new-item__title.css');
+@import url('../blocks/new-item/_opened/new-item_opened.css');
+@import url('../blocks/new-item/__fieldset/new-item__fieldset.css');
+@import url('../blocks/new-item/__input/new-item__input.css');
+@import url('../blocks/new-item/__input/_animate/new-item__input_animate.css');
+@import url('../blocks/new-item/__container/new-item__container.css');

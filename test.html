@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="pop">LALALAL</div>
+    <input type="text" id="input">
+    <button id='button' type="button">Click</button>
+
+    <script>
+        const urls = [
+            'www',
+            123,
+            'www.rbc.ru',
+            'https://avatars.githubusercontent.com/u/33640448?v=4',
+            'https://httpbin.org/image/webp',
+            'https://upload.wikimedia.org/wikipedia/commons/a/a3/June_odd-eyed-cat.jpg',
+            'www.rbc.ru',
+            'fewfwe'
+        ];
+
+
+        const img = new Image();
+        img.src = urls[0];
+        img.onload = () => console.log('ok');
+        img.onerror = () => console.log('no');
+
+
+        /*
+                function isLinkToImgage(url) {
+                    const img = new Image();
+                    img.src = url;
+                    return new Promise((resolve, reject) => {
+                        img.onerror = () => reject(false);
+                        
+                    });
+                }
+
+                isLinkToImgage(urls[1])
+                    .then((item) => {
+                        console.log(item)
+                    })
+                    .catch((it) => {
+                        console.log(it)
+                    })*/
+    </script>
+</body>
+
+<style>
+    #pop {
+        width: 100px;
+        height: 100px;
+
+        color: black;
+        animation-name: example;
+        animation-duration: 2s;
+    }
+
+    @keyframes example {
+        0% {
+            color: black;
+        }
+
+        17% {
+            color: red;
+        }
+
+        34% {
+            color: black;
+        }
+
+        51% {
+            color: red;
+        }
+
+        68% {
+            color: black;
+        }
+
+        85% {
+            color: red;
+        }
+
+        100% {
+            color: black;
+        }
+    }
+</style>
+
+</html>

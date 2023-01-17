@@ -30,7 +30,7 @@
         </section>
 
         <section class="elements">
-           
+
         </section>
     </main>
 
@@ -52,6 +52,22 @@
         </div>
     </div>
 
+    <!--  -->
+    <div class="new-item">
+        <div class="new-item__container">
+            <form class="new-item__form" name="form-edit-profile">
+                <h3 class="new-item__title">Новое место</h3>
+                <fieldset class="new-item__fieldset">
+                    <input type="text" class="new-item__input" name="item-text" placeholder="Название" value="">
+                    <input type="text" class="new-item__input" name="item-link" placeholder="Ссылка на картинку"
+                        value="">
+                </fieldset>
+                <button type="submit" id="submit" class="new-item__submit">Сохранить</button>
+            </form>
+            <button type="button" class="new-item__cancel" value=" "></button>
+        </div>
+    </div>
+    <!--            -->
     <template id="card-template">
         <article class="element">
             <img src="./images/elbrus1.png" alt="фото-гора-эльбрус-2" class="element__image">
@@ -59,13 +75,15 @@
                 <h2 class="element__text">Гора Эльбрус</h2>
                 <button type="button" class="element__delete"></button>
                 <button type="button" class="element__heart"></button>
-
             </div>
         </article>
     </template>
-
-    <script src="./scripts/start_up_load.js"></script>
+    <script src="./scripts/card_delete.js"></script>
+    <script src="./scripts/like_card.js"></script>
+    <script src="./scripts/add_card.js"></script>
     <script src="./scripts/profile_edit.js"></script>
+    <script src="./scripts/start_up_load.js"></script>
+
 </body>
 
 </html>
