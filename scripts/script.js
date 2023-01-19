@@ -39,7 +39,7 @@ initialCards.forEach((item) => {
 function createCard(name, link) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardInstance = cardTemplate.querySelector('.element').cloneNode(true);
-    let cardImage = cardInstance.querySelector('.element__image')
+    const cardImage = cardInstance.querySelector('.element__image')
     cardInstance.querySelector('.element__text').textContent = name
     cardImage.src = link
     cardImage.alt = name
@@ -61,7 +61,7 @@ const addForm = document.querySelector('.new-item__form')
 const addFormName = addForm.querySelector('input[name="item-text"]')
 const addFormLink = addForm.querySelector('input[name="item-link"]')
 
-addForm.onsubmit = submitNewCard
+addForm.addEventListener('submit', submitNewCard)
 
 // Identification of view block
 const viewItemBlock = document.querySelector('.view')
@@ -80,9 +80,11 @@ const editProfileBlock = document.querySelector('.edit')
 const editForm = editProfileBlock.querySelector('.edit__form')
 const formName = editProfileBlock.querySelector('input[name="form-name"]')
 const formProfession = editProfileBlock.querySelector('input[name="form-profession"]')
-editForm.onsubmit = submitProfile
+editForm.addEventListener('submit',submitProfile)
 
 editProfileBtn.addEventListener('click', () => {
+    formName.value = profileTitle.textContent
+    formProfession.value = profileText.textContent
     openPopup(editProfileBlock)
 })
 
@@ -90,8 +92,8 @@ addItemBtn.addEventListener('click', () => {
     openPopup(addBlock)
 })
 
-function openPopup(target) {
-    target.classList.add('popup_opened')
+function openPopup(popup) {
+    popup.classList.add('popup_opened')
     formName.value = profileTitle.textContent
     formProfession.value = profileText.textContent
 }
@@ -120,8 +122,8 @@ function submitProfile(evt) {
 function submitNewCard(evt) {
     evt.preventDefault()
 
-    let newText = addFormName.value
-    let newImageLink = addFormLink.value
+    const newText = addFormName.value
+    const newImageLink = addFormLink.value
     let validationTest = true
 
     if (newText.split(' ').join('').length === 0) {
@@ -143,11 +145,8 @@ function submitNewCard(evt) {
 
     img.onload = () => {
         cartHolder.prepend(createCard(newText, newImageLink))
-        closePopup(addBlock)
-        setTimeout(function () {
-            addForm.reset()
-            editForm.reset()
-        }, 300)
+        closePopup(addBlock)   
+        addForm.reset()
     }
 }
 
