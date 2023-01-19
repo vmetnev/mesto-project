@@ -1,5 +1,4 @@
-.view {
-    display: none;
+.view {    
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -11,5 +10,6 @@
     margin: 0;
     padding: 0;
     background-color: rgba(0, 0, 0, 0.9);
-    caret-color: transparent;
+    caret-color: transparent;       
+
 }

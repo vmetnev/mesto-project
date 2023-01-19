@@ -1,12 +1,11 @@
-.popup__fieldset {
+.edit__fieldset {
     border: none;
     margin: 20px 0 0 0;
     padding: 0;
 }
 
 @media screen and (max-width:879px) {
-    .popup__fieldset {
+    .edit__fieldset {
         margin: 47px 0 0 0;
     }
-
 }

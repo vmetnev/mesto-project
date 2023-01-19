@@ -29,7 +29,7 @@ const initialCards = [{
 ];
 
 initialCards.forEach((item) => {
-    document.querySelector('.elements').appendChild(createCard(item.name, item.link))
+    document.querySelector('.elements').append(createCard(item.name, item.link))
 })
 
 function createCard(name, link) {
@@ -44,193 +44,117 @@ function createCard(name, link) {
     return cardInstance
 }
 
-/// VIEW IMAGE
+// Setting close
+document.querySelectorAll('.popup__close').forEach((item) => {
+    item.addEventListener('click', closePopup)
+})
+
+// Identification of elements blocks for adding new cards
+const cartHolder = document.querySelector('.elements')
+
+// Identification of new item block
+const addBlock = document.querySelector('.new-item')
+const addForm = addBlock.querySelector('.new-item__form')
+addBlock.querySelector('.new-item__submit').addEventListener('click', submitNewCard)
+
+// Identification of view block
+const viewItemBlock = document.querySelector('.view')
+
+// Identification of profile block
+const profileBlock = document.querySelector('.profile')
+const editProfileBtn = profileBlock.querySelector('.profile__edit-button')
+const addItemBtn = profileBlock.querySelector('.profile__add-button')
+
+const editProfileBlock = document.querySelector('.edit')
+editProfileBlock.querySelector('.edit__submit').addEventListener('click', submitProfile)
+const editForm = editProfileBlock.querySelector('.edit__form')
+let formName = editProfileBlock.querySelector('input[name="form-name"]')
+let formProfession = editProfileBlock.querySelector('input[name="form-profession"]')
+
+editProfileBtn.addEventListener('click', () => {
+    openPopup(editProfileBlock)
+})
+
+addItemBtn.addEventListener('click', () => {
+    openPopup(addBlock)
+})
+
+function openPopup(target) {
+    target.classList.add('popup_opened')   
+
+    if (target.classList.contains('edit')) {        
+        formName.value = profileBlock.querySelector('.profile__title').textContent
+        formProfession.value = profileBlock.querySelector('.profile__text').textContent
+    }
+}
+
+function closePopup(evt) {
+    let elementToClose = ""
+    if (evt.target) {
+        elementToClose = evt.target.closest('.popup')
+    } else {
+        elementToClose = evt
+    }
+  
+    elementToClose.classList.remove('popup_opened')
+    addForm.reset()
+    editForm.reset() 
+
+}
+
+function submitProfile(evt) {
+    evt.preventDefault()
+    document.querySelector('.profile__title').textContent = editProfileBlock.querySelector('input[name="form-name"]').value
+    document.querySelector('.profile__text').textContent = editProfileBlock.querySelector('input[name="form-profession"]').value
+    closePopup(evt)
+}
+
+function submitNewCard(evt) {
+    evt.preventDefault()
+    const nameInput = addBlock.querySelector('input[name="item-text"]')
+    const linkInput = addBlock.querySelector('input[name="item-link"]')
+
+    let newText = nameInput.value
+    let newImageLink = linkInput.value
+    let validationTest = true
+
+    if (newText.split(' ').join('').length === 0) {
+        validationTest = false
+    }
+
+    if (newImageLink.split(' ').join('').length === 0) {
+        validationTest = false
+    }
+
+    const img = new Image()
+    img.src = newImageLink
+
+    img.onerror = () => {
+        validationTest = false
+    }
+
+    if (!validationTest) return
+
+    img.onload = () => {
+        cartHolder.prepend(createCard(newText, newImageLink))
+        closePopup(addBlock)
+    }
+}
 
 function viewImage(evt) {
-    document.querySelector('.view').classList.add('view_opened')
-    document.querySelector('.view').classList.remove('view_fadeout')
-    document.querySelector('.view').classList.add('view_fadein')
-
-    document.querySelector('.view__text').textContent = evt.target.alt
-    document.querySelector('.view__image').src = evt.target.src
-    document.querySelector('.view__close').addEventListener('click', viewClose)
-
-    const viewImg = new Image()
-    viewImg.src = evt.target.src
-
-    function viewClose() {
-        document.querySelector('.view__close').removeEventListener('click', viewClose)
-        document.querySelector('.view').classList.remove('view_fadein')
-        document.querySelector('.view').classList.add('view_fadeout')
-        setTimeout(function () {
-            document.querySelector('.view').classList.remove('view_opened')
-        }, 400)
-    }
+    openPopup(viewItemBlock)
+    console.log(evt.target.alt)
+    console.log(evt.target.src)
+    const targetImage = viewItemBlock.querySelector('.view__image')
+    targetImage.src = evt.target.src
+    targetImage.alt = evt.target.alt
+    viewItemBlock.querySelector('.view__text').textContent = evt.target.alt
 }
-
-// ####################################################################
-// ########## ADD CARD                                #################
-// ####################################################################
-
-const btnAdd = document.querySelector('.profile__add-button')
-btnAdd.addEventListener('click', btnAddHandler)
-
-function btnAddHandler() {
-    document.querySelector('.new-item').classList.add('new-item_opened')
-
-    document.querySelector('.new-item').classList.remove('new-item_fadeout')
-    document.querySelector('.new-item').classList.add('new-item_fadein')
-
-    const addForm = document.querySelector('.new-item')
-    addForm.querySelector('.new-item__submit').addEventListener('click', btnAddFormSubmitHandler)
-    addForm.querySelector('.new-item__cancel').addEventListener('click', btnAddFormCancelHandler)
-
-    function btnAddFormSubmitHandler(evt) {
-        evt.preventDefault()
-
-        // Validation
-        const newText = addForm.querySelector('input[name="item-text"]').value
-        const newImageLink = addForm.querySelector('input[name="item-link"]').value
-
-        let validationTest = true
-
-        if (newText.split(' ').join('').length === 0) {
-            validationTest = false
-            addForm.querySelector('input[name="item-text"]').value = "Название"
-            document.querySelector('input[name="item-text"]').classList.add('new-item__input_animate')
-            setTimeout(function () {
-                document.querySelector('input[name="item-text"]').classList.remove('new-item__input_animate')
-                addForm.querySelector('input[name="item-text"]').value = ""
-            }, 2000)
-        }
-
-        if (newImageLink.split(' ').join('').length === 0) {
-            validationTest = false
-            addForm.querySelector('input[name="item-link"]').value = "Ссылка на картинку"
-            document.querySelector('input[name="item-link"]').classList.add('new-item__input_animate')
-            setTimeout(function () {
-                document.querySelector('input[name="item-link"]').classList.remove('new-item__input_animate')
-                addForm.querySelector('input[name="item-link"]').value = ""
-            }, 2000)
-        }
-
-        const img = new Image()
-        img.src = newImageLink
-
-        img.onerror = () => {
-
-            document.querySelector('input[name="item-link"]').classList.add('new-item__input_animate')
-            setTimeout(function () {
-                document.querySelector('input[name="item-link"]').classList.remove('new-item__input_animate')
-            }, 2000)
-            validationTest = false
-        }
-
-        if (!validationTest) return
-
-        img.onload = () => {
-
-            document.querySelector('.elements').prepend(createCard(newText, newImageLink))
-
-            addForm.querySelector('input[name="item-text"]').value = ""
-            addForm.querySelector('input[name="item-link"]').value = ""
-            addForm.querySelector('.new-item__submit').removeEventListener('click', btnAddFormSubmitHandler)
-            addForm.querySelector('.new-item__cancel').removeEventListener('click', btnAddFormCancelHandler)
-
-            document.querySelector('.new-item').classList.remove('new-item_fadein')
-            document.querySelector('.new-item').classList.add('new-item_fadeout')
-            setTimeout(function () {
-                document.querySelector('.new-item').classList.remove('new-item_opened')
-            }, 900)
-        }
-    }
-
-    function btnAddFormCancelHandler(evt) {
-        addForm.querySelector('input[name="item-text"]').value = ""
-        addForm.querySelector('input[name="item-link"]').value = ""
-        document.querySelector('input[name="item-link"]').classList.remove('new-item__input_animate')
-        addForm.querySelector('.new-item__submit').removeEventListener('click', btnAddFormSubmitHandler)
-        addForm.querySelector('.new-item__cancel').removeEventListener('click', btnAddFormCancelHandler)
-
-        document.querySelector('.new-item').classList.remove('new-item_fadein')
-        document.querySelector('.new-item').classList.add('new-item_fadeout')
-        setTimeout(function () {
-            document.querySelector('.new-item').classList.remove('new-item_opened')
-        }, 900)
-    }
-}
-
-// ####################################################################
-// ########## CARD DELETE                             #################
-// ####################################################################
 
 function deleteCard(evt) {
     evt.target.parentElement.parentElement.remove();
 }
 
-// ####################################################################
-// ########## CARD LIKE                               #################
-// ####################################################################
-
 function likeCard(evt) {
-    console.log('like')
     evt.target.classList.toggle('element__heart_active')
-}
-
-
-// ####################################################################
-// ########## PROFILE EDIT                            #################
-// ####################################################################
-
-const btnEdit = document.querySelector('.profile__edit-button')
-btnEdit.addEventListener('click', btnEditHandler)
-
-function btnEditHandler() {
-
-    document.querySelector('.popup').classList.add('popup_opened')
-    document.querySelector('.popup').classList.remove('popup_fadeout')
-    document.querySelector('.popup').classList.add('popup_fadein')
-    const editForm = document.querySelector('.popup')
-
-    const profileName = document.querySelector('.profile__title').textContent
-    const profileProfession = document.querySelector('.profile__text').textContent
-
-    editForm.querySelector('.popup__submit').addEventListener('click', btnFormSubmitHandler)
-    editForm.querySelector('.popup__cancel').addEventListener('click', btnFormEditCancelHandler)
-    editForm.querySelector('input[name="form-name"]').value = profileName
-    editForm.querySelector('input[name="form-profession"]').value = profileProfession
-
-    function btnFormSubmitHandler(evt) {
-        evt.preventDefault()
-
-        const newName = editForm.querySelector('input[name="form-name"]').value
-        const newProfession = editForm.querySelector('input[name="form-profession"]').value
-        document.querySelector('.profile__title').textContent = newName
-        document.querySelector('.profile__text').textContent = newProfession
-
-        editForm.querySelector('.popup__submit').removeEventListener('click', btnFormSubmitHandler)
-        editForm.querySelector('.popup__cancel').removeEventListener('click', btnFormEditCancelHandler)
-        console.log('here')
-
-        document.querySelector('.popup').classList.remove('popup_fadein')
-        document.querySelector('.popup').classList.add('popup_fadeout')
-        setTimeout(function () {
-            document.querySelector('.popup').classList.remove('popup_opened')
-        }, 900)
-    }
-
-    function btnFormEditCancelHandler() {
-        document.querySelector('.profile__title').textContent = profileName
-        document.querySelector('.profile__text').textContent = profileProfession
-        editForm.querySelector('.popup__submit').removeEventListener('click', btnFormSubmitHandler)
-        editForm.querySelector('.popup__cancel').removeEventListener('click', btnFormEditCancelHandler)
-
-        document.querySelector('.popup').classList.remove('popup_fadein')
-        document.querySelector('.popup').classList.add('popup_fadeout')
-        setTimeout(function () {
-            document.querySelector('.popup').classList.remove('popup_opened')
-        }, 900)
-
-
-    }
 }

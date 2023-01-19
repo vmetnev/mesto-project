@@ -38,21 +38,21 @@
         <p class="footer__text">© 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
-        <div class="popup__container">
-            <form class="popup__form" name="form-edit-profile">
-                <h3 class="popup__title">Редактировать профиль</h3>
-                <fieldset class="popup__fieldset">
-                    <input type="text" class="popup__input" name="form-name" value="">
-                    <input type="text" class="popup__input" name="form-profession" value="">
+    <div class="popup edit">
+        <div class="edit__container">
+            <form class="edit__form" name="form-edit-profile">
+                <h3 class="edit__title">Редактировать профиль</h3>
+                <fieldset class="edit__fieldset">
+                    <input type="text" class="edit__input" name="form-name" value="" placeholder="Имя">
+                    <input type="text" class="edit__input" name="form-profession" value="" placeholder="Профессия">
                 </fieldset>
-                <button type="submit" id="submit" class="popup__submit">Сохранить</button>
+                <button type="submit" id="submit" class="edit__submit">Сохранить</button>
             </form>
-            <button type="button" class="popup__cancel" value=" "></button>
+            <button type="button" class="popup__close" value=" "></button>
         </div>
     </div>
 
-    <div class="new-item">
+    <div class="popup new-item">
         <div class="new-item__container">
             <form class="new-item__form" name="form-edit-profile">
                 <h3 class="new-item__title">Новое место</h3>
@@ -63,15 +63,15 @@
                 </fieldset>
                 <button type="submit" id="submit" class="new-item__submit">Сохранить</button>
             </form>
-            <button type="button" class="new-item__cancel" value=" "></button>
+            <button type="button" class="popup__close" value=" "></button>
         </div>
     </div>
 
-    <div class="view">
+    <div class="popup view">
         <div class="view__container">
             <img class="view__image" src="" alt="">
-            <p class="view__text">fefe</p>
-            <button type="button" class="view__close" value=""></button>
+            <p class="view__text"></p>
+            <button type="button" class="popup__close" value=""></button>
         </div>
     </div>
 

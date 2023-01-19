@@ -1,4 +1,4 @@
-.popup__input {
+.edit__input {
     display: block;
     box-sizing: border-box;
     border: none;
@@ -14,12 +14,12 @@
     color: #000000;
 }
 
-.popup__input:focus {
+.edit__input:focus {
     outline: none;
 }
 
 @media screen and (max-width:879px) {
-    .popup__input {
+    .edit__input {
         width: 238px;
     }
 }

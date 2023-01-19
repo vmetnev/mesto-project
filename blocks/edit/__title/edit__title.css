@@ -1,4 +1,4 @@
-.popup__title {
+.edit__title {
     width: 100%;
     max-width: 358px;
     margin: 34px auto 0 auto;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width:879px) {
-    .popup__title {
+    .edit__title {
         max-width: 238px;
         font-size: 18px;
         line-height: 22px;
