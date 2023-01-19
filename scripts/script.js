@@ -28,17 +28,22 @@ const initialCards = [{
     }
 ];
 
+
+// Identification of elements blocks for adding new cards
+const cartHolder = document.querySelector('.elements')
+
 initialCards.forEach((item) => {
-    document.querySelector('.elements').append(createCard(item.name, item.link))
+    cartHolder.append(createCard(item.name, item.link))
 })
 
 function createCard(name, link) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardInstance = cardTemplate.querySelector('.element').cloneNode(true);
+    let cardImage = cardInstance.querySelector('.element__image')
     cardInstance.querySelector('.element__text').textContent = name
-    cardInstance.querySelector('.element__image').src = link
-    cardInstance.querySelector('.element__image').alt = name
-    cardInstance.querySelector('.element__image').addEventListener('click', viewImage)
+    cardImage.src = link
+    cardImage.alt = name
+    cardImage.addEventListener('click', viewImage)
     cardInstance.querySelector('.element__delete').addEventListener('click', deleteCard)
     cardInstance.querySelector('.element__heart').addEventListener('click', likeCard)
     return cardInstance
@@ -46,30 +51,36 @@ function createCard(name, link) {
 
 // Setting close
 document.querySelectorAll('.popup__close').forEach((item) => {
-    item.addEventListener('click', closePopup)
+    item.addEventListener('click', hideClosestPopup)
 })
 
-// Identification of elements blocks for adding new cards
-const cartHolder = document.querySelector('.elements')
 
 // Identification of new item block
 const addBlock = document.querySelector('.new-item')
-const addForm = addBlock.querySelector('.new-item__form')
-addBlock.querySelector('.new-item__submit').addEventListener('click', submitNewCard)
+const addForm = document.querySelector('.new-item__form')
+const addFormName = addForm.querySelector('input[name="item-text"]')
+const addFormLink = addForm.querySelector('input[name="item-link"]')
+
+addForm.onsubmit = submitNewCard
 
 // Identification of view block
 const viewItemBlock = document.querySelector('.view')
+const viewTargetImage = viewItemBlock.querySelector('.view__image')
+const viewTargetText = viewItemBlock.querySelector('.view__text')
 
 // Identification of profile block
 const profileBlock = document.querySelector('.profile')
+
+const profileTitle = profileBlock.querySelector('.profile__title')
+const profileText = profileBlock.querySelector('.profile__text')
+
 const editProfileBtn = profileBlock.querySelector('.profile__edit-button')
 const addItemBtn = profileBlock.querySelector('.profile__add-button')
-
 const editProfileBlock = document.querySelector('.edit')
-editProfileBlock.querySelector('.edit__submit').addEventListener('click', submitProfile)
 const editForm = editProfileBlock.querySelector('.edit__form')
-let formName = editProfileBlock.querySelector('input[name="form-name"]')
-let formProfession = editProfileBlock.querySelector('input[name="form-profession"]')
+const formName = editProfileBlock.querySelector('input[name="form-name"]')
+const formProfession = editProfileBlock.querySelector('input[name="form-profession"]')
+editForm.onsubmit = submitProfile
 
 editProfileBtn.addEventListener('click', () => {
     openPopup(editProfileBlock)
@@ -80,42 +91,37 @@ addItemBtn.addEventListener('click', () => {
 })
 
 function openPopup(target) {
-    target.classList.add('popup_opened')   
-
-    if (target.classList.contains('edit')) {        
-        formName.value = profileBlock.querySelector('.profile__title').textContent
-        formProfession.value = profileBlock.querySelector('.profile__text').textContent
-    }
+    target.classList.add('popup_opened')
+    formName.value = profileTitle.textContent
+    formProfession.value = profileText.textContent
 }
 
-function closePopup(evt) {
-    let elementToClose = ""
-    if (evt.target) {
-        elementToClose = evt.target.closest('.popup')
-    } else {
-        elementToClose = evt
-    }
-  
-    elementToClose.classList.remove('popup_opened')
-    addForm.reset()
-    editForm.reset() 
+function closePopup(popup) {
+    popup.classList.remove('popup_opened')
+}
 
+function hideClosestPopup(evt) {
+    const elementToClose = evt.target.closest('.popup')
+    closePopup(elementToClose)
 }
 
 function submitProfile(evt) {
     evt.preventDefault()
-    document.querySelector('.profile__title').textContent = editProfileBlock.querySelector('input[name="form-name"]').value
-    document.querySelector('.profile__text').textContent = editProfileBlock.querySelector('input[name="form-profession"]').value
-    closePopup(evt)
+
+    if (formName.value.length === 0 || formProfession.value.length === 0) {       
+        return
+    }
+  
+    profileTitle.textContent = formName.value
+    profileText.textContent = formProfession.value
+    closePopup(editProfileBlock)
 }
 
 function submitNewCard(evt) {
     evt.preventDefault()
-    const nameInput = addBlock.querySelector('input[name="item-text"]')
-    const linkInput = addBlock.querySelector('input[name="item-link"]')
 
-    let newText = nameInput.value
-    let newImageLink = linkInput.value
+    let newText = addFormName.value
+    let newImageLink = addFormLink.value
     let validationTest = true
 
     if (newText.split(' ').join('').length === 0) {
@@ -138,21 +144,23 @@ function submitNewCard(evt) {
     img.onload = () => {
         cartHolder.prepend(createCard(newText, newImageLink))
         closePopup(addBlock)
+        setTimeout(function () {
+            addForm.reset()
+            editForm.reset()
+        }, 300)
     }
 }
 
 function viewImage(evt) {
-    openPopup(viewItemBlock)
-    console.log(evt.target.alt)
-    console.log(evt.target.src)
-    const targetImage = viewItemBlock.querySelector('.view__image')
-    targetImage.src = evt.target.src
-    targetImage.alt = evt.target.alt
-    viewItemBlock.querySelector('.view__text').textContent = evt.target.alt
+    openPopup(viewItemBlock)    
+    viewTargetImage.src = evt.target.src
+    viewTargetImage.alt = evt.target.alt
+    viewTargetText.textContent = evt.target.alt
 }
 
 function deleteCard(evt) {
-    evt.target.parentElement.parentElement.remove();
+    console.log(evt.target)
+    evt.target.closest('.element').remove();
 }
 
 function likeCard(evt) {
