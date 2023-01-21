@@ -8,6 +8,8 @@
     background-color: transparent;    
     top: 20px;
     right: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .element__delete:hover {    
