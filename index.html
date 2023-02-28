@@ -40,15 +40,24 @@
 
     <div class="popup edit">
         <div class="edit__container">
-            <form class="edit__form" name="form-edit-profile">
+            <form class="edit__form popup__form" name="form-edit-profile">
                 <h3 class="edit__title">Редактировать профиль</h3>
                 <fieldset class="edit__fieldset">
-                    <input type="text" required class="edit__input" name="form-name" value="" placeholder="Имя" required minlength="2" maxlength="40">
-                    <p class="edit__validation-message">Вы пропустили это поле</p>
-                    <input type="text" class="edit__input" name="form-profession" value="" placeholder="Профессия" required minlength="2" maxlength="200">
-                    <p class="edit__validation-message">Вы пропустили это поле</p>
+
+                    <input type="text" required class="edit__input popup__input" name="form-name" id="form-name"
+                        value=" " placeholder="Имя" required minlength="2" maxlength="40" pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
+                        data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                    <span class="popup__input_type_error form-name-error"></span>
+
+                    <input type="text" class="edit__input popup__input popup__input_type_error" name="form-profession"
+                        id="form-profession" value=" " placeholder="Профессия" required minlength="2" maxlength="200"
+                        pattern="^[A-Za-zА-ЯЁа-яё\- ]+$" 
+                        data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                    <span class="popup__input_type_error form-profession-error"></span>
+
+
+                    <button type="submit" id="submit" class="edit__submit popup__button" disabled>Сохранить</button>
                 </fieldset>
-                <button type="submit" id="submit" class="edit__submit">Сохранить</button>
             </form>
             <button type="button" class="popup__close" value=" "></button>
         </div>
@@ -56,14 +65,24 @@
 
     <div class="popup new-item">
         <div class="new-item__container">
-            <form class="new-item__form" name="form-edit-profile">
+            <form class="new-item__form popup__form" name="form-edit-profile">
                 <h3 class="new-item__title">Новое место</h3>
                 <fieldset class="new-item__fieldset">
-                    <input type="text" class="new-item__input" name="item-text" placeholder="Название" value="" required minlength="2" maxlength="30">
-                    <input type="text" class="new-item__input" name="item-link" placeholder="Ссылка на картинку"
-                        value="" required>
+
+                    <input type="text" class="new-item__input popup__input" name="item-text" id="item-text"
+                        placeholder="Название" value="" required minlength="2" maxlength="30" 
+                        pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
+                        data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                    <span class="popup__input_type_error item-text-error"></span>
+
+                    <input type="url" class="new-item__input popup__input" name="item-link" id="item-link"
+                        placeholder="Ссылка на картинку" value="" required>
+                    <span class="popup__input_type_error item-link-error"></span>
+
+
+                    <button type="submit" id="submit" class="new-item__submit popup__button "
+                        disabled>Сохранить</button>
                 </fieldset>
-                <button type="submit" id="submit" class="new-item__submit">Сохранить</button>
             </form>
             <button type="button" class="popup__close" value=" "></button>
         </div>

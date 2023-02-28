@@ -46,7 +46,9 @@ const toggleButtonState = (inputList, buttonElement) => {
 const setEventListeners = (formElement) => {
     const inputList = Array.from(formElement.querySelectorAll('.form__input'));
     const buttonElement = formElement.querySelector('.form__submit')
+    
     toggleButtonState(inputList, buttonElement)
+    
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', function () {
             checkInputValidity(formElement, inputElement);
@@ -57,14 +59,18 @@ const setEventListeners = (formElement) => {
 
 const enableValidation = () => {
     
-    const formList = Array.from(document.querySelectorAll('.form'));
+    const formList = Array.from(document.querySelectorAll('.popup__form'));
     
+    // Finding all forms
     formList.forEach((formElement) => {
+        
+
         formElement.addEventListener('submit', function (evt) {
             evt.preventDefault();
         });
 
-        const fieldsetList = Array.from(formElement.querySelectorAll('.form__set'))
+        // Finding all inputs in each form
+        const fieldsetList = Array.from(formElement.querySelectorAll('.popup__input'))
         fieldsetList.forEach(fieldset => {
             setEventListeners(fieldset)
         })

@@ -94,17 +94,31 @@ addItemBtn.addEventListener('click', () => {
 })
 
 function openPopup(popup) {
+
+    let mouseUpTarget
+    let mouseDownTarget
+
     popup.classList.add('popup_opened')
     formName.value = profileTitle.textContent
     formProfession.value = profileText.textContent
     document.body.addEventListener('keydown', handleEsc)
+    
+    popup.addEventListener('mousedown', handleMouseDown)
+    popup.addEventListener('mouseup', handleMouseUp)
     popup.addEventListener('click', handleClick)
 }
 
+function handleMouseDown(evt){
+    mouseDownTarget = evt.target
+}
+
+function handleMouseUp(evt){
+    mouseUpTarget = evt.target
+}
 
 function handleClick(evt) {
     let target = evt.target
-    if (target.classList.contains('popup_opened')) {
+    if (target.classList.contains('popup_opened') && mouseDownTarget === mouseUpTarget) {
         closePopup(target)
     }
 }
@@ -117,9 +131,17 @@ function handleEsc(evt) {
 }
 
 function closePopup(popup) {
+    popup.querySelector('.popup__form').reset()
     popup.classList.remove('popup_opened')
+    
     popup.removeEventListener('click', handleClick)
+    
+    
     document.body.removeEventListener('keydown', handleEsc)
+
+    // on closing popup make error message invisible and make it empty
+    let errorMessages = Array.from(popup.querySelectorAll('.popup__input_type_error'))
+    errorMessages.forEach(item => item.textContent = "")
 }
 
 function hideClosestPopup(evt) {
@@ -185,3 +207,93 @@ function deleteCard(evt) {
 function likeCard(evt) {
     evt.target.classList.toggle('element__heart_active')
 }
+
+
+
+// #####################################################################
+// #####################################################################
+// #####################################################################
+
+
+const showInputError = (formElement, inputElement, errorMessage) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    console.log(errorElement)
+
+    inputElement.classList.add('form__input_type_error'); /// подчеркивание Input
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add('form__input-error_active'); /// показ сообщения
+};
+
+const hideInputError = (formElement, inputElement) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove('form__input_type_error');
+    errorElement.classList.remove('form__input-error_active');
+    errorElement.textContent = '';
+};
+
+const checkInputValidity = (formElement, inputElement) => {
+    if (!inputElement.validity.valid) {
+        showInputError(formElement, inputElement, inputElement.validationMessage);
+    } else {
+        hideInputError(formElement, inputElement);
+    }
+};
+const hasInvalidInput = (inputList) => {
+    return inputList.some(inputElement => {
+        return !inputElement.validity.valid;
+    })
+}
+
+
+// #####################################################################
+
+const toggleButtonState = (inputList, buttonElement) => {
+    if (hasInvalidInput(inputList)) {       
+        
+        Array.from(inputList).forEach(item=>{
+            console.log(item)
+        })
+
+
+        buttonElement.disabled = true;
+        buttonElement.classList.add('popup__button_disabled');
+    } else {
+        buttonElement.disabled = false;
+        buttonElement.classList.remove('popup__button_disabled');
+    }
+};
+
+const setEventListeners = (formElement) => {
+    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+    const buttonElement = formElement.querySelector('.popup__button')
+    //console.log(buttonElement)
+
+
+   toggleButtonState(inputList, buttonElement)
+
+    inputList.forEach((inputElement) => {
+        inputElement.addEventListener('input', function () {
+            checkInputValidity(formElement, inputElement);
+            toggleButtonState(inputList, buttonElement)
+        });
+    });
+};
+
+
+const enableValidation = () => {
+    const formList = Array.from(document.querySelectorAll('.popup__form'));
+    formList.forEach((formElement) => {
+        // Finding all forms
+        formElement.addEventListener('submit', function (evt) {
+            evt.preventDefault();
+        });
+        const fieldsetList = Array.from(formElement.querySelectorAll('fieldset'))
+        // Finding all field elements in each form - inputs and submit buttons
+        fieldsetList.forEach(fieldset => {
+
+            setEventListeners(fieldset)
+        })
+    });
+};
+
+enableValidation();
