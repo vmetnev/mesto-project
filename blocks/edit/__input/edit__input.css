@@ -4,7 +4,7 @@
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     width: 358px;
-    margin: 29px auto 0 auto;
+    margin: 13px auto 0 auto;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -12,6 +12,7 @@
     height: 27px;
     padding: 0 0 12px 0;
     color: #000000;
+    outline: 1px solid red;
 }
 
 .edit__input:focus {

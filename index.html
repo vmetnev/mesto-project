@@ -43,9 +43,10 @@
             <form class="edit__form" name="form-edit-profile">
                 <h3 class="edit__title">Редактировать профиль</h3>
                 <fieldset class="edit__fieldset">
-                    <input type="text" class="edit__input" name="form-name" value="" placeholder="Имя">
-                    
-                    <input type="text" class="edit__input" name="form-profession" value="" placeholder="Профессия">
+                    <input type="text" required class="edit__input" name="form-name" value="" placeholder="Имя" required minlength="2" maxlength="40">
+                    <p class="edit__validation-message">Вы пропустили это поле</p>
+                    <input type="text" class="edit__input" name="form-profession" value="" placeholder="Профессия" required minlength="2" maxlength="200">
+                    <p class="edit__validation-message">Вы пропустили это поле</p>
                 </fieldset>
                 <button type="submit" id="submit" class="edit__submit">Сохранить</button>
             </form>
@@ -58,9 +59,9 @@
             <form class="new-item__form" name="form-edit-profile">
                 <h3 class="new-item__title">Новое место</h3>
                 <fieldset class="new-item__fieldset">
-                    <input type="text" class="new-item__input" name="item-text" placeholder="Название" value="">
+                    <input type="text" class="new-item__input" name="item-text" placeholder="Название" value="" required minlength="2" maxlength="30">
                     <input type="text" class="new-item__input" name="item-link" placeholder="Ссылка на картинку"
-                        value="">
+                        value="" required>
                 </fieldset>
                 <button type="submit" id="submit" class="new-item__submit">Сохранить</button>
             </form>

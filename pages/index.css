@@ -91,3 +91,9 @@
 @import url('../blocks/view/__container/view__container.css');
 @import url('../blocks/view/__image/view__image.css');
 @import url('../blocks/view/__text/view__text.css');
+
+
+/* -------------------------------------------------------------------------------- */
+/* VALIDATION */
+/* -------------------------------------------------------------------------------- */
+@import url('../blocks/edit/__validation-message/edit__validation-message.css');

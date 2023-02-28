@@ -80,7 +80,7 @@ const editProfileBlock = document.querySelector('.edit')
 const editForm = editProfileBlock.querySelector('.edit__form')
 const formName = editProfileBlock.querySelector('input[name="form-name"]')
 const formProfession = editProfileBlock.querySelector('input[name="form-profession"]')
-editForm.addEventListener('submit',submitProfile)
+editForm.addEventListener('submit', submitProfile)
 
 editProfileBtn.addEventListener('click', () => {
     formName.value = profileTitle.textContent
@@ -89,6 +89,7 @@ editProfileBtn.addEventListener('click', () => {
 })
 
 addItemBtn.addEventListener('click', () => {
+    addForm.reset()
     openPopup(addBlock)
 })
 
@@ -96,10 +97,29 @@ function openPopup(popup) {
     popup.classList.add('popup_opened')
     formName.value = profileTitle.textContent
     formProfession.value = profileText.textContent
+    document.body.addEventListener('keydown', handleEsc)
+    popup.addEventListener('click', handleClick)
+}
+
+
+function handleClick(evt) {
+    let target = evt.target
+    if (target.classList.contains('popup_opened')) {
+        closePopup(target)
+    }
+}
+
+
+function handleEsc(evt) {
+    if (evt.key === "Escape") {
+        closePopup(document.querySelector('.popup_opened'))
+    }
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened')
+    popup.removeEventListener('click', handleClick)
+    document.body.removeEventListener('keydown', handleEsc)
 }
 
 function hideClosestPopup(evt) {
@@ -110,10 +130,10 @@ function hideClosestPopup(evt) {
 function submitProfile(evt) {
     evt.preventDefault()
 
-    if (formName.value.length === 0 || formProfession.value.length === 0) {       
+    if (formName.value.length === 0 || formProfession.value.length === 0) {
         return
     }
-  
+
     profileTitle.textContent = formName.value
     profileText.textContent = formProfession.value
     closePopup(editProfileBlock)
@@ -145,13 +165,13 @@ function submitNewCard(evt) {
 
     img.onload = () => {
         cartHolder.prepend(createCard(newText, newImageLink))
-        closePopup(addBlock)   
+        closePopup(addBlock)
         addForm.reset()
     }
 }
 
 function viewImage(evt) {
-    openPopup(viewItemBlock)    
+    openPopup(viewItemBlock)
     viewTargetImage.src = evt.target.src
     viewTargetImage.alt = evt.target.alt
     viewTargetText.textContent = evt.target.alt
