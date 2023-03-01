@@ -95,6 +95,7 @@ addItemBtn.addEventListener('click', () => {
 
 function openPopup(popup) {
 
+    // variables to avoid closing popup on mousedown on the form and mouseup outside of the form
     let mouseUpTarget
     let mouseDownTarget
 
@@ -135,8 +136,9 @@ function closePopup(popup) {
     popup.classList.remove('popup_opened')
     
     popup.removeEventListener('click', handleClick)
-    
-    
+    popup.removeEventListener('mousedown', handleMouseDown)
+    popup.removeEventListener('mouseup', handleMouseUp)
+        
     document.body.removeEventListener('keydown', handleEsc)
 
     // on closing popup make error message invisible and make it empty
@@ -208,8 +210,6 @@ function likeCard(evt) {
     evt.target.classList.toggle('element__heart_active')
 }
 
-
-
 // #####################################################################
 // #####################################################################
 // #####################################################################
@@ -253,7 +253,6 @@ const toggleButtonState = (inputList, buttonElement) => {
         Array.from(inputList).forEach(item=>{
             console.log(item)
         })
-
 
         buttonElement.disabled = true;
         buttonElement.classList.add('popup__button_disabled');
