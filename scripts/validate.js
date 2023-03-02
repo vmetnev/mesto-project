@@ -1,38 +1,56 @@
 function enableValidation() {
+
     const form = document.querySelector('.popup__form[name="form-edit-profile"]')
     form.addEventListener('submit', handleFormSubmit)
-    form.addEventListener('input', handleFormInput)
+
+    const inputFields = Array.from(form.querySelectorAll('.popup__input'))
+
+    inputFields.forEach(inputField => {
+        handleFormInput(form, inputField)
+        inputField.addEventListener('input', () => {
+            handleFormInput(form, inputField)
+        })
+    })
+
+    setSubmitButtonState(form)
+
+    const form1 = document.querySelector('.popup__form[name="form-new-item"]')
+    form1.addEventListener('submit', handleFormSubmit)
+
+    const inputFields1 = Array.from(form1.querySelectorAll('.popup__input'))
+    inputFields1.forEach(inputField => {
+        inputField.addEventListener('input', () => {
+            handleFormInput(form1, inputField)
+        })
+    })
+
+
+    setSubmitButtonState(form1)
+
 }
 
 function handleFormSubmit(evt) {
-
     evt.preventDefault()
-
     const form = evt.currentTarget;
     const isValid = form.checkValidity()
-
     if (isValid) {
         form.reset()
-        alert("valid")
-    } else {
-        alert("invalid")
     }
 }
 
-function handleFormInput(evt) {
-    const input = evt.target
-    const form = evt.currentTarget
-    console.log(input.validity)
+function handleFormInput(form, input) {
 
-    if (!input.validity.valid) {              
-        setErrorMessage(input)        
-        showInputError(input)        
+
+    if (!input.validity.valid) {
+        setErrorMessage(input)
+        showInputError(input)
         setSubmitButtonState(form)
     }
 
     if (input.validity.valid) {
         input.nextElementSibling.textContent = ""
         input.classList.remove('popup__input_type_error')
+        setSubmitButtonState(form)
     }
 }
 
@@ -58,7 +76,7 @@ function setSubmitButtonState(form) {
         button.removeAttribute('disabled')
         button.classList.remove('popup__button_disabled')
     } else {
-        button.setAttribute('disabled', 'true')
+        button.setAttribute('disabled', true)
         button.classList.add('popup__button_disabled')
     }
 }
@@ -66,14 +84,14 @@ function setSubmitButtonState(form) {
 
 enableValidation()
 
-
 const formConfig1 = {
     formSelector: '.popup__form[name="form-edit-profile"]',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
+    errorClass: 'popup__error_visible',
+    validationAtOpen: true
 }
 
 const formConfig2 = {
@@ -82,5 +100,6 @@ const formConfig2 = {
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
+    errorClass: 'popup__error_visible',
+    validationAtOpen: false
 }

@@ -104,6 +104,7 @@ function openPopup(popup) {
     popup.addEventListener('mousedown', handleMouseDown)
     popup.addEventListener('mouseup', handleMouseUp)
     popup.addEventListener('click', handleClick)    
+    enableValidation()   
 }
 
 function handleMouseDown(evt) {
@@ -133,11 +134,11 @@ function closePopup(popup) {
     popup.removeEventListener('mousedown', handleMouseDown)
     popup.removeEventListener('mouseup', handleMouseUp)
     document.body.removeEventListener('keydown', handleEsc)
-    popup.querySelector('.popup__form').reset()
     const errorMessages = Array.from(popup.querySelectorAll('.popup__error_visible'))
     errorMessages.forEach(item => item.textContent = "")
     const inputFields = Array.from(popup.querySelectorAll('.popup__input'))
     inputFields.forEach(item => item.classList.remove('popup__input_type_error'))
+    popup.querySelector('.popup__form').reset()
 }
 
 function hideClosestPopup(evt) {

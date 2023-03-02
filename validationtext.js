@@ -1,9 +1,4 @@
-// Редактировать профиль
 
-// Пусто - вы пропустили это поле
-// Минимальное количество символов: 2. Длина текста сейчас 1 символ
-
-// остальное - стандартные браузенрные тексты ошибок
 
 const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
