@@ -94,22 +94,16 @@ addItemBtn.addEventListener('click', () => {
 })
 
 function openPopup(popup) {
-
     // variables to avoid closing popup on mousedown on the form and mouseup outside of the form
     let mouseUpTarget
     let mouseDownTarget
-
     popup.classList.add('popup_opened')
     formName.value = profileTitle.textContent
     formProfession.value = profileText.textContent
     document.body.addEventListener('keydown', handleEsc)
-
     popup.addEventListener('mousedown', handleMouseDown)
     popup.addEventListener('mouseup', handleMouseUp)
-    popup.addEventListener('click', handleClick)
-
-    let targetForm = popup.querySelector('.popup__form')
-    enableValidation(targetForm);
+    popup.addEventListener('click', handleClick)    
 }
 
 function handleMouseDown(evt) {

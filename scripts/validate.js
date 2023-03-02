@@ -1,85 +1,74 @@
+function enableValidation() {
+    const form = document.querySelector('.popup__form[name="form-edit-profile"]')
+    form.addEventListener('submit', handleFormSubmit)
+    form.addEventListener('input', handleFormInput)
+}
 
-const showInputError = (formElement, inputElement, errorMessage) => {
-    const errorElement = inputElement.nextElementSibling;  
-    console.log(inputElement)  
-    inputElement.classList.add('popup__input_type_error');
-    errorElement.textContent = inputElement.validity.patternMismatch ? inputElement.dataset.patternError : errorMessage    
-};
+function handleFormSubmit(evt) {
 
-const hideInputError = (formElement, inputElement) => {
-    const errorElement = inputElement.nextElementSibling;
-    inputElement.classList.remove('popup__input_type_error');    
-    errorElement.textContent = '';
-};
+    evt.preventDefault()
 
-const checkInputValidity = (formElement, inputElement) => {    
-    
-    if (!inputElement.validity.valid) {
-        showInputError(formElement, inputElement, inputElement.validationMessage);
+    const form = evt.currentTarget;
+    const isValid = form.checkValidity()
+
+    if (isValid) {
+        form.reset()
+        alert("valid")
     } else {
-        hideInputError(formElement, inputElement);
+        alert("invalid")
     }
-};
-const hasInvalidInput = (inputList) => {
-    return inputList.some(inputElement => {
-        return !inputElement.validity.valid;
-    })
+}
+
+function handleFormInput(evt) {
+    const input = evt.target
+    const form = evt.currentTarget
+    console.log(input.validity)
+
+    if (!input.validity.valid) {              
+        setErrorMessage(input)        
+        showInputError(input)        
+        setSubmitButtonState(form)
+    }
+
+    if (input.validity.valid) {
+        input.nextElementSibling.textContent = ""
+        input.classList.remove('popup__input_type_error')
+    }
+}
+
+function setErrorMessage(input) {
+    if (input.validity.patternMismatch) {
+        input.setCustomValidity(input.dataset.patternError)
+    } else {
+        input.setCustomValidity('')
+    }
+}
+
+function showInputError(input) {
+    const targetSpan = input.nextElementSibling
+    targetSpan.textContent = input.validationMessage
+    input.classList.add('popup__input_type_error')
+}
+
+function setSubmitButtonState(form) {
+    const button = form.querySelector('.popup__button')
+    const isValid = form.checkValidity()
+
+    if (isValid) {
+        button.removeAttribute('disabled')
+        button.classList.remove('popup__button_disabled')
+    } else {
+        button.setAttribute('disabled', 'true')
+        button.classList.add('popup__button_disabled')
+    }
 }
 
 
-
-const toggleButtonState = (inputList, buttonElement) => {
-    if (hasInvalidInput(inputList)) {
-
-        Array.from(inputList).forEach(item => {
-            // console.log(item)
-        })
-
-        buttonElement.disabled = true;
-        buttonElement.classList.add('popup__button_disabled');
-    } else {
-        buttonElement.disabled = false;
-        buttonElement.classList.remove('popup__button_disabled');
-    }
-};
-
-const setEventListeners = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-    const buttonElement = formElement.querySelector('.popup__button')
-    
-
-
-    toggleButtonState(inputList, buttonElement)
-
-    inputList.forEach((inputElement) => {
-        inputElement.addEventListener('input', function () {
-            checkInputValidity(formElement, inputElement);
-            toggleButtonState(inputList, buttonElement)
-        });
-    });
-};
-
-
-const enableValidation = () => {
-
-    const formList = Array.from(document.querySelectorAll('.popup__form'));
-    formList.forEach((formElement) => {
-        // Finding all forms
-        formElement.addEventListener('submit', function (evt) {
-            evt.preventDefault();
-        });
-        const fieldsetList = Array.from(formElement.querySelectorAll('fieldset'))
-        // Finding all field elements in each form - inputs and submit buttons
-        fieldsetList.forEach(fieldset => {
-            console.log(fieldset)
-            setEventListeners(fieldset)
-        })
-    });
-};
+enableValidation()
 
 
 const formConfig1 = {
-    formSelector: '.popup__form[name="fomr-edit-profile"]',
+    formSelector: '.popup__form[name="form-edit-profile"]',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',
@@ -95,6 +84,3 @@ const formConfig2 = {
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible'
 }
-
-enableValidation(formConfig1)
-enableValidation(formConfig2)
