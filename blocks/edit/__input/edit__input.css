@@ -4,7 +4,7 @@
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     width: 358px;
-    margin: 13px auto 0 auto;
+    margin: 2px auto 0 auto;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -13,14 +13,21 @@
     padding: 0 0 12px 0;
     color: #000000;
     
+    
 }
 
 .edit__input:focus {
     outline: none;
 }
 
+
+/* .edit__input:invalid {
+    border-bottom: 1px solid #FF0000;
+} */
+
 @media screen and (max-width:879px) {
     .edit__input {
         width: 238px;
+        margin: 10px auto 0 auto;
     }
 }

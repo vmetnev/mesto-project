@@ -49,7 +49,7 @@
                         data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
                     <span class="popup__input_type_error form-name-error"></span>
 
-                    <input type="text" class="edit__input popup__input popup__input_type_error" name="form-profession"
+                    <input type="text" class="edit__input popup__input" name="form-profession"
                         id="form-profession" value=" " placeholder="Профессия" required minlength="2" maxlength="200"
                         pattern="^[A-Za-zА-ЯЁа-яё\- ]+$" 
                         data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
@@ -70,13 +70,13 @@
                 <fieldset class="new-item__fieldset">
 
                     <input type="text" class="new-item__input popup__input" name="item-text" id="item-text"
-                        placeholder="Название" value="" required minlength="2" maxlength="30" 
+                        placeholder="Название"  required minlength="2" maxlength="30" 
                         pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
                         data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
                     <span class="popup__input_type_error item-text-error"></span>
 
                     <input type="url" class="new-item__input popup__input" name="item-link" id="item-link"
-                        placeholder="Ссылка на картинку" value="" required>
+                        placeholder="Ссылка на картинку" required>
                     <span class="popup__input_type_error item-link-error"></span>
 
 

@@ -103,17 +103,20 @@ function openPopup(popup) {
     formName.value = profileTitle.textContent
     formProfession.value = profileText.textContent
     document.body.addEventListener('keydown', handleEsc)
-    
+
     popup.addEventListener('mousedown', handleMouseDown)
     popup.addEventListener('mouseup', handleMouseUp)
     popup.addEventListener('click', handleClick)
+
+    let targetForm = popup.querySelector('.popup__form')
+    enableValidation(targetForm);
 }
 
-function handleMouseDown(evt){
+function handleMouseDown(evt) {
     mouseDownTarget = evt.target
 }
 
-function handleMouseUp(evt){
+function handleMouseUp(evt) {
     mouseUpTarget = evt.target
 }
 
@@ -132,13 +135,10 @@ function handleEsc(evt) {
 }
 
 function closePopup(popup) {
-    popup.querySelector('.popup__form').reset()
     popup.classList.remove('popup_opened')
-    
     popup.removeEventListener('click', handleClick)
     popup.removeEventListener('mousedown', handleMouseDown)
     popup.removeEventListener('mouseup', handleMouseUp)
-        
     document.body.removeEventListener('keydown', handleEsc)
 
     // on closing popup make error message invisible and make it empty
@@ -217,10 +217,11 @@ function likeCard(evt) {
 
 const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    console.log(errorElement)
 
     inputElement.classList.add('form__input_type_error'); /// подчеркивание Input
-    errorElement.textContent = errorMessage;
+
+    errorElement.textContent = inputElement.validity.patternMismatch ? inputElement.dataset.patternError : errorMessage
+
     errorElement.classList.add('form__input-error_active'); /// показ сообщения
 };
 
@@ -248,10 +249,10 @@ const hasInvalidInput = (inputList) => {
 // #####################################################################
 
 const toggleButtonState = (inputList, buttonElement) => {
-    if (hasInvalidInput(inputList)) {       
-        
-        Array.from(inputList).forEach(item=>{
-            console.log(item)
+    if (hasInvalidInput(inputList)) {
+
+        Array.from(inputList).forEach(item => {
+            // console.log(item)
         })
 
         buttonElement.disabled = true;
@@ -268,7 +269,7 @@ const setEventListeners = (formElement) => {
     //console.log(buttonElement)
 
 
-   toggleButtonState(inputList, buttonElement)
+    toggleButtonState(inputList, buttonElement)
 
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', function () {
@@ -280,6 +281,7 @@ const setEventListeners = (formElement) => {
 
 
 const enableValidation = () => {
+
     const formList = Array.from(document.querySelectorAll('.popup__form'));
     formList.forEach((formElement) => {
         // Finding all forms
@@ -295,4 +297,4 @@ const enableValidation = () => {
     });
 };
 
-enableValidation();
+enableValidation()
