@@ -127,7 +127,6 @@ function handleClick(evt) {
     }
 }
 
-
 function handleEsc(evt) {
     if (evt.key === "Escape") {
         closePopup(document.querySelector('.popup_opened'))
@@ -140,10 +139,11 @@ function closePopup(popup) {
     popup.removeEventListener('mousedown', handleMouseDown)
     popup.removeEventListener('mouseup', handleMouseUp)
     document.body.removeEventListener('keydown', handleEsc)
-
-    // on closing popup make error message invisible and make it empty
-    let errorMessages = Array.from(popup.querySelectorAll('.popup__input_type_error'))
+    popup.querySelector('.popup__form').reset()
+    const errorMessages = Array.from(popup.querySelectorAll('.popup__error_visible'))
     errorMessages.forEach(item => item.textContent = "")
+    const inputFields = Array.from(popup.querySelectorAll('.popup__input'))
+    inputFields.forEach(item => item.classList.remove('popup__input_type_error'))
 }
 
 function hideClosestPopup(evt) {
@@ -153,11 +153,6 @@ function hideClosestPopup(evt) {
 
 function submitProfile(evt) {
     evt.preventDefault()
-
-    if (formName.value.length === 0 || formProfession.value.length === 0) {
-        return
-    }
-
     profileTitle.textContent = formName.value
     profileText.textContent = formProfession.value
     closePopup(editProfileBlock)
@@ -209,92 +204,3 @@ function deleteCard(evt) {
 function likeCard(evt) {
     evt.target.classList.toggle('element__heart_active')
 }
-
-// #####################################################################
-// #####################################################################
-// #####################################################################
-
-
-const showInputError = (formElement, inputElement, errorMessage) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-
-    inputElement.classList.add('form__input_type_error'); /// подчеркивание Input
-
-    errorElement.textContent = inputElement.validity.patternMismatch ? inputElement.dataset.patternError : errorMessage
-
-    errorElement.classList.add('form__input-error_active'); /// показ сообщения
-};
-
-const hideInputError = (formElement, inputElement) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('form__input_type_error');
-    errorElement.classList.remove('form__input-error_active');
-    errorElement.textContent = '';
-};
-
-const checkInputValidity = (formElement, inputElement) => {
-    if (!inputElement.validity.valid) {
-        showInputError(formElement, inputElement, inputElement.validationMessage);
-    } else {
-        hideInputError(formElement, inputElement);
-    }
-};
-const hasInvalidInput = (inputList) => {
-    return inputList.some(inputElement => {
-        return !inputElement.validity.valid;
-    })
-}
-
-
-// #####################################################################
-
-const toggleButtonState = (inputList, buttonElement) => {
-    if (hasInvalidInput(inputList)) {
-
-        Array.from(inputList).forEach(item => {
-            // console.log(item)
-        })
-
-        buttonElement.disabled = true;
-        buttonElement.classList.add('popup__button_disabled');
-    } else {
-        buttonElement.disabled = false;
-        buttonElement.classList.remove('popup__button_disabled');
-    }
-};
-
-const setEventListeners = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-    const buttonElement = formElement.querySelector('.popup__button')
-    //console.log(buttonElement)
-
-
-    toggleButtonState(inputList, buttonElement)
-
-    inputList.forEach((inputElement) => {
-        inputElement.addEventListener('input', function () {
-            checkInputValidity(formElement, inputElement);
-            toggleButtonState(inputList, buttonElement)
-        });
-    });
-};
-
-
-const enableValidation = () => {
-
-    const formList = Array.from(document.querySelectorAll('.popup__form'));
-    formList.forEach((formElement) => {
-        // Finding all forms
-        formElement.addEventListener('submit', function (evt) {
-            evt.preventDefault();
-        });
-        const fieldsetList = Array.from(formElement.querySelectorAll('fieldset'))
-        // Finding all field elements in each form - inputs and submit buttons
-        fieldsetList.forEach(fieldset => {
-
-            setEventListeners(fieldset)
-        })
-    });
-};
-
-enableValidation()

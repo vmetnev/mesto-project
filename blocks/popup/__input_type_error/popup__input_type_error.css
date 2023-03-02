@@ -1,23 +1,6 @@
+
 .popup__input_type_error {
-    padding: 0;
-    display:block;
-    width: 358px;
-    margin:5px auto 0 auto;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 15px;
-    color: #FF0000;
-    min-height: 30px;    
+    box-sizing: border-box;
+    border-bottom: 1px solid #FF0000 !important;
     
-    
-    /* visibility: hidden; */
-}
-
-
-@media screen and (max-width:879px) {
-    .popup__input_type_error {
-        width: 238px;
-    }
 }

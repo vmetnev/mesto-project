@@ -45,18 +45,19 @@
                 <fieldset class="edit__fieldset">
 
                     <input type="text" required class="edit__input popup__input" name="form-name" id="form-name"
-                        value=" " placeholder="Имя" required minlength="2" maxlength="40" pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
+                        value=" " placeholder="Имя" required minlength="2" maxlength="40"
+                        pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
                         data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
-                    <span class="popup__input_type_error form-name-error"></span>
+                    <span class="popup__error_visible form-name-error"></span>
 
-                    <input type="text" class="edit__input popup__input" name="form-profession"
-                        id="form-profession" value=" " placeholder="Профессия" required minlength="2" maxlength="200"
-                        pattern="^[A-Za-zА-ЯЁа-яё\- ]+$" 
+                    <input type="text" class="edit__input popup__input" name="form-profession" id="form-profession"
+                        value=" " placeholder="Профессия" required minlength="2" maxlength="200"
+                        pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
                         data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
-                    <span class="popup__input_type_error form-profession-error"></span>
+                    <span class="popup__error_visible form-profession-error"></span>
 
 
-                    <button type="submit" id="submit" class="edit__submit popup__button" disabled>Сохранить</button>
+                    <button type="submit" id="submit" class="edit__submit popup__button">Сохранить</button>
                 </fieldset>
             </form>
             <button type="button" class="popup__close" value=" "></button>
@@ -65,23 +66,21 @@
 
     <div class="popup new-item">
         <div class="new-item__container">
-            <form class="new-item__form popup__form" name="form-edit-profile">
+            <form class="new-item__form popup__form" name="form-new-item">
                 <h3 class="new-item__title">Новое место</h3>
                 <fieldset class="new-item__fieldset">
 
                     <input type="text" class="new-item__input popup__input" name="item-text" id="item-text"
-                        placeholder="Название"  required minlength="2" maxlength="30" 
-                        pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
+                        placeholder="Название" required minlength="2" maxlength="30" pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
                         data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
-                    <span class="popup__input_type_error item-text-error"></span>
+                    <span class="popup__error_visible item-text-error"></span>
 
                     <input type="url" class="new-item__input popup__input" name="item-link" id="item-link"
                         placeholder="Ссылка на картинку" required>
-                    <span class="popup__input_type_error item-link-error"></span>
+                    <span class="popup__error_visible item-link-error"></span>
 
 
-                    <button type="submit" id="submit" class="new-item__submit popup__button "
-                        disabled>Сохранить</button>
+                    <button type="submit" id="submit" class="new-item__submit popup__button" disabled>Сохранить</button>
                 </fieldset>
             </form>
             <button type="button" class="popup__close" value=" "></button>
@@ -107,7 +106,11 @@
         </article>
     </template>
 
-    <script src="./scripts/script.js"></script>
+    <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
+    <script src="./scripts/card.js"></script>
+    <script src="./scripts/modal.js"></script>
+    <script src="./scripts/utils.js"></script>
 </body>
 
 </html>
