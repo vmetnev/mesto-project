@@ -1,32 +1,43 @@
-function enableValidation() {
+const form1Config = {
+    formSelector: '.popup__form[name="form-edit-profile"]',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible',
+    validationAtOpen: true
+}
 
-    const form = document.querySelector('.popup__form[name="form-edit-profile"]')
+const form2Config = {
+    formSelector: '.popup__form[name="form-new-item"]',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible',
+    validationAtOpen: false
+}
+
+startValidation()
+
+function startValidation() {
+    enableValidation(form1Config)
+    enableValidation(form2Config)
+}
+
+function enableValidation(config) {
+
+    const form = document.querySelector(config.formSelector)
     form.addEventListener('submit', handleFormSubmit)
-
-    const inputFields = Array.from(form.querySelectorAll('.popup__input'))
+    const inputFields = Array.from(form.querySelectorAll(config.inputSelector))
 
     inputFields.forEach(inputField => {
-        handleFormInput(form, inputField)
+        if (config.validationAtOpen) handleFormInput(config, form, inputField)
         inputField.addEventListener('input', () => {
-            handleFormInput(form, inputField)
+            handleFormInput(config, form, inputField)
         })
     })
-
-    setSubmitButtonState(form)
-
-    const form1 = document.querySelector('.popup__form[name="form-new-item"]')
-    form1.addEventListener('submit', handleFormSubmit)
-
-    const inputFields1 = Array.from(form1.querySelectorAll('.popup__input'))
-    inputFields1.forEach(inputField => {
-        inputField.addEventListener('input', () => {
-            handleFormInput(form1, inputField)
-        })
-    })
-
-
-    setSubmitButtonState(form1)
-
+    setSubmitButtonState(config, form)
 }
 
 function handleFormSubmit(evt) {
@@ -38,23 +49,20 @@ function handleFormSubmit(evt) {
     }
 }
 
-function handleFormInput(form, input) {
-
-
+function handleFormInput(config, form, input) {
     if (!input.validity.valid) {
-        setErrorMessage(input)
-        showInputError(input)
-        setSubmitButtonState(form)
+        setErrorMessage(config, input)
+        showInputError(config, input)
+        setSubmitButtonState(config, form)
     }
-
     if (input.validity.valid) {
         input.nextElementSibling.textContent = ""
-        input.classList.remove('popup__input_type_error')
-        setSubmitButtonState(form)
+        input.classList.remove(config.inputErrorClass)
+        setSubmitButtonState(config, form)
     }
 }
 
-function setErrorMessage(input) {
+function setErrorMessage(config, input) {
     if (input.validity.patternMismatch) {
         input.setCustomValidity(input.dataset.patternError)
     } else {
@@ -62,44 +70,21 @@ function setErrorMessage(input) {
     }
 }
 
-function showInputError(input) {
+function showInputError(config, input) {
     const targetSpan = input.nextElementSibling
     targetSpan.textContent = input.validationMessage
-    input.classList.add('popup__input_type_error')
+    input.classList.add(config.inputErrorClass)
 }
 
-function setSubmitButtonState(form) {
-    const button = form.querySelector('.popup__button')
+function setSubmitButtonState(config, form) {
+    const button = form.querySelector(config.submitButtonSelector)
     const isValid = form.checkValidity()
 
     if (isValid) {
         button.removeAttribute('disabled')
-        button.classList.remove('popup__button_disabled')
+        button.classList.remove(config.inactiveButtonClass)
     } else {
         button.setAttribute('disabled', true)
         button.classList.add('popup__button_disabled')
     }
-}
-
-
-enableValidation()
-
-const formConfig1 = {
-    formSelector: '.popup__form[name="form-edit-profile"]',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible',
-    validationAtOpen: true
-}
-
-const formConfig2 = {
-    formSelector: '.popup__form[name="form-new-item"]',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible',
-    validationAtOpen: false
 }

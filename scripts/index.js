@@ -104,7 +104,7 @@ function openPopup(popup) {
     popup.addEventListener('mousedown', handleMouseDown)
     popup.addEventListener('mouseup', handleMouseUp)
     popup.addEventListener('click', handleClick)    
-    enableValidation()   
+    startValidation()   
 }
 
 function handleMouseDown(evt) {
