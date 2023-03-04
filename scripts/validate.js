@@ -18,8 +18,6 @@ const form2Config = {
     validationAtOpen: false
 }
 
-startValidation()
-
 function startValidation() {
     enableValidation(form1Config)
     enableValidation(form2Config)
@@ -88,3 +86,8 @@ function setSubmitButtonState(config, form) {
         button.classList.add('popup__button_disabled')
     }
 }
+
+export {startValidation}
+
+
+
