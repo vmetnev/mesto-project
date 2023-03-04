@@ -1,12 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Проект "Место"</title>
 </head>
-<body>
-    
+
+<body class="page">
+
+    <header class="header">
+        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип">
+    </header>
+
+    <main class="main">
+
+        <section class="profile">
+            <img src="<%=require('./images/image.png')%>" alt="фото-жак-ив-кусто" class="profile__avatar">
+            <div class="profile__info">
+                <div class="profile__top">
+                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <button type="button" class="profile__edit-button"></button>
+                </div>
+                <p class="profile__text">Исследователь океана</p>
+            </div>
+            <button type="button" class="profile__add-button"></button>
+        </section>
+
+        <section class="elements">
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p class="footer__text">© 2020 Mesto Russia</p>
+    </footer>
+
+    <div class="popup edit">
+        <div class="edit__container">
+            <form class="edit__form popup__form" name="form-edit-profile">
+                <h3 class="edit__title">Редактировать профиль</h3>
+                <fieldset class="edit__fieldset">
+
+                    <input type="text" required class="edit__input popup__input" name="form-name" id="form-name"
+                        value=" " placeholder="Имя" required minlength="2" maxlength="40"
+                        pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
+                        data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                    <span class="popup__error_visible form-name-error"></span>
+
+                    <input type="text" class="edit__input popup__input" name="form-profession" id="form-profession"
+                        value=" " placeholder="Профессия" required minlength="2" maxlength="200"
+                        pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
+                        data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                    <span class="popup__error_visible form-profession-error"></span>
+
+
+                    <button type="submit" id="submit" class="edit__submit popup__button">Сохранить</button>
+                </fieldset>
+            </form>
+            <button type="button" class="popup__close" value=" "></button>
+        </div>
+    </div>
+
+    <div class="popup new-item">
+        <div class="new-item__container">
+            <form class="new-item__form popup__form" name="form-new-item">
+                <h3 class="new-item__title">Новое место</h3>
+                <fieldset class="new-item__fieldset">
+
+                    <input type="text" class="new-item__input popup__input" name="item-text" id="item-text"
+                        placeholder="Название" required minlength="2" maxlength="30" pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
+                        data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                    <span class="popup__error_visible item-text-error"></span>
+
+                    <input type="url" class="new-item__input popup__input" name="item-link" id="item-link"
+                        placeholder="Ссылка на картинку" required>
+                    <span class="popup__error_visible item-link-error"></span>
+
+
+                    <button type="submit" id="submit" class="new-item__submit popup__button">Сохранить</button>
+                </fieldset>
+            </form>
+            <button type="button" class="popup__close" value=" "></button>
+        </div>
+    </div>
+
+    <div class="popup view">
+        <div class="view__container">
+            <img class="view__image" src="" alt="">
+            <p class="view__text"></p>
+            <button type="button" class="popup__close" value=""></button>
+        </div>
+    </div>
+
+    <template id="card-template">
+        <article class="element">
+            <img src="<%=require('./images/elbrus1.png')%>" alt="фото-гора-эльбрус-2" class="element__image">
+            <div class="element__info">
+                <h2 class="element__text">Гора Эльбрус</h2>
+                <button type="button" class="element__delete"></button>
+                <button type="button" class="element__heart"></button>
+            </div>
+        </article>
+    </template>
+
 </body>
+
 </html>

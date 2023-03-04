@@ -1,3 +1,12 @@
+import {
+    openPopup,
+    closePopup,
+    hideClosestPopup
+} from "./modal.js"
+
+let mouseDownTarget
+let mouseUpTarget
+
 function handleMouseDown(evt) {
     mouseDownTarget = evt.target
 }
@@ -23,5 +32,7 @@ export {
     handleMouseDown,
     handleMouseUp,
     handleClick,
-    handleEsc
+    handleEsc,
+    mouseDownTarget,
+    mouseUpTarget
 }

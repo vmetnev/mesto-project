@@ -1,4 +1,4 @@
-import './pages/index.css';
+import '../pages/index.css'
 
 import {
     initialCards,
@@ -8,18 +8,17 @@ import {
 } from "./card.js"
 
 import {
-    openPopup,
-    closePopup,
-    hideClosestPopup
-} from "./modal.js"
-
-import {
     handleMouseDown,
     handleMouseUp,
     handleClick,
     handleEsc
 } from "./utils.js"
 
+import {
+    openPopup,
+    closePopup,
+    hideClosestPopup
+} from "./modal.js"
 
 import {
     startValidation
@@ -40,11 +39,6 @@ const addForm = document.querySelector('.new-item__form')
 const addFormName = addForm.querySelector('input[name="item-text"]')
 const addFormLink = addForm.querySelector('input[name="item-link"]')
 addForm.addEventListener('submit', submitNewCard)
-
-// Identification of view block
-const viewItemBlock = document.querySelector('.view')
-const viewTargetImage = viewItemBlock.querySelector('.view__image')
-const viewTargetText = viewItemBlock.querySelector('.view__text')
 
 // Identification of profile block
 const profileBlock = document.querySelector('.profile')
@@ -95,6 +89,5 @@ function submitNewCard(evt) {
         addForm.reset()
     }
 }
-
 
 startValidation()
