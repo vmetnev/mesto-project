@@ -30,8 +30,7 @@ const initialCards = [{
     }
 ];
 
-function createCard(name, link) {
-    const cardTemplate = document.querySelector('#card-template').content;
+function createCard(cardTemplate, name, link) {   
     const cardInstance = cardTemplate.querySelector('.element').cloneNode(true);
     const cardImage = cardInstance.querySelector('.element__image')
     cardInstance.querySelector('.element__text').textContent = name

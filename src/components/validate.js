@@ -18,13 +18,21 @@ const form2Config = {
     validationAtOpen: false
 }
 
+const globalFormConfig = {
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible',
+    validationAtOpen: true
+}
+
 function startValidation() {
     enableValidation(form1Config)
     enableValidation(form2Config)
 }
 
 function enableValidation(config) {
-
     const form = document.querySelector(config.formSelector)
     form.addEventListener('submit', handleFormSubmit)
     const inputFields = Array.from(form.querySelectorAll(config.inputSelector))
@@ -36,6 +44,7 @@ function enableValidation(config) {
         })
     })
     setSubmitButtonState(config, form)
+
 }
 
 function handleFormSubmit(evt) {
@@ -44,6 +53,31 @@ function handleFormSubmit(evt) {
     const isValid = form.checkValidity()
     if (isValid) {
         form.reset()
+    }
+}
+
+function assessFieldsForButton(form) {
+    if (!form) return
+
+    const button = form.querySelector('button')
+    if (button.getAttribute('type') === 'submit') {
+        const inputFields = Array.from(form.querySelectorAll('input'))
+        let inputCheck = true
+        inputFields.forEach(input => {
+            input.setCustomValidity('')
+            input.classList.remove('popup__input_type_error')
+            input.nextElementSibling.textContent = ""
+            if (!input.value) {
+                inputCheck = false
+            }
+        })
+        if (inputCheck) {
+            button.disabled = false
+            button.classList.remove(globalFormConfig.inactiveButtonClass)
+        } else {
+            button.disabled = true
+            button.classList.add(globalFormConfig.inactiveButtonClass)
+        }
     }
 }
 
@@ -83,11 +117,11 @@ function setSubmitButtonState(config, form) {
         button.classList.remove(config.inactiveButtonClass)
     } else {
         button.setAttribute('disabled', true)
-        button.classList.add('popup__button_disabled')
+        button.classList.add(config.inactiveButtonClass)
     }
 }
 
-export {startValidation}
-
-
-
+export {
+    startValidation,
+    assessFieldsForButton
+}

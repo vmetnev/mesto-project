@@ -5,18 +5,18 @@ import {
     handleEsc
 } from "./utils.js"
 
-import { startValidation } from "./validate.js"
+import {
+    startValidation,
+    assessFieldsForButton
+} from "./validate.js"
 
-function openPopup(popup) {    
-    // variables to avoid closing popup on mousedown on the form and mouseup outside of the form
-    let mouseUpTarget
-    let mouseDownTarget
+function openPopup(popup) {
     popup.classList.add('popup_opened')
     document.body.addEventListener('keydown', handleEsc)
     popup.addEventListener('mousedown', handleMouseDown)
     popup.addEventListener('mouseup', handleMouseUp)
     popup.addEventListener('click', handleClick)
-    startValidation()
+    assessFieldsForButton(popup.querySelector('form'))
 }
 
 function closePopup(popup) {
@@ -25,10 +25,8 @@ function closePopup(popup) {
     popup.removeEventListener('mousedown', handleMouseDown)
     popup.removeEventListener('mouseup', handleMouseUp)
     document.body.removeEventListener('keydown', handleEsc)
-    const errorMessages = Array.from(popup.querySelectorAll('.popup__error_visible'))
-    errorMessages.forEach(item => item.textContent = "")
-    const inputFields = Array.from(popup.querySelectorAll('.popup__input'))
-    inputFields.forEach(item => item.classList.remove('popup__input_type_error'))    
+    const form = popup.querySelector('form')
+    if (form) form.reset()
 }
 
 function hideClosestPopup(evt) {

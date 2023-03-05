@@ -4,8 +4,8 @@ import {
     hideClosestPopup
 } from "./modal.js"
 
-let mouseDownTarget
-let mouseUpTarget
+let mouseDownTarget = ""
+let mouseUpTarget = ""
 
 function handleMouseDown(evt) {
     mouseDownTarget = evt.target
@@ -16,7 +16,7 @@ function handleMouseUp(evt) {
 }
 
 function handleClick(evt) {
-    let target = evt.target
+    const target = evt.target
     if (target.classList.contains('popup_opened') && mouseDownTarget === mouseUpTarget) {
         closePopup(target)
     }

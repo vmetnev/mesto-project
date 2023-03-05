@@ -21,12 +21,14 @@ import {
 } from "./modal.js"
 
 import {
-    startValidation
+    startValidation,
+    assessFieldsForButton
 } from "./validate.js"
 
 const cartHolder = document.querySelector('.elements')
-initialCards.forEach((item) => {      
-    cartHolder.append(createCard(item.name, item.link))
+const cardTemplate = document.querySelector('#card-template').content;
+initialCards.forEach((item) => {
+    cartHolder.append(createCard(cardTemplate, item.name, item.link))
 })
 
 document.querySelectorAll('.popup__close').forEach((item) => {
@@ -48,6 +50,7 @@ const editProfileBtn = profileBlock.querySelector('.profile__edit-button')
 const addItemBtn = profileBlock.querySelector('.profile__add-button')
 const editProfileBlock = document.querySelector('.edit')
 const editForm = editProfileBlock.querySelector('.edit__form')
+const editFormSubmitButton = editForm.querySelector('.edit__submit')
 const formName = editProfileBlock.querySelector('input[name="form-name"]')
 const formProfession = editProfileBlock.querySelector('input[name="form-profession"]')
 editForm.addEventListener('submit', submitProfile)
@@ -66,7 +69,7 @@ addItemBtn.addEventListener('click', () => {
 function submitProfile(evt) {
     evt.preventDefault()
     profileTitle.textContent = formName.value
-    profileText.textContent = formProfession.value
+    profileText.textContent = formProfession.value 
     closePopup(editProfileBlock)
 }
 
@@ -84,7 +87,7 @@ function submitNewCard(evt) {
     }
 
     img.onload = () => {
-        cartHolder.prepend(createCard(newText, newImageLink))
+        cartHolder.prepend(createCard(cardTemplate, newText, newImageLink))
         closePopup(addBlock)
         addForm.reset()
     }
