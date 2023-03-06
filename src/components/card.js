@@ -43,8 +43,7 @@ function createCard(cardTemplate, name, link) {
     return cardInstance
 }
 
-function deleteCard(evt) {
-    console.log(evt.target)
+function deleteCard(evt) {    
     evt.target.closest('.element').remove();
 }
 

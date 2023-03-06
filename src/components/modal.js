@@ -16,7 +16,6 @@ function openPopup(popup) {
     popup.addEventListener('mousedown', handleMouseDown)
     popup.addEventListener('mouseup', handleMouseUp)
     popup.addEventListener('click', handleClick)
-    assessFieldsForButton(popup.querySelector('form'))
 }
 
 function closePopup(popup) {
@@ -25,8 +24,6 @@ function closePopup(popup) {
     popup.removeEventListener('mousedown', handleMouseDown)
     popup.removeEventListener('mouseup', handleMouseUp)
     document.body.removeEventListener('keydown', handleEsc)
-    const form = popup.querySelector('form')
-    if (form) form.reset()
 }
 
 function hideClosestPopup(evt) {

@@ -56,13 +56,16 @@ const formProfession = editProfileBlock.querySelector('input[name="form-professi
 editForm.addEventListener('submit', submitProfile)
 
 editProfileBtn.addEventListener('click', () => {
+    editForm.reset()    
+    assessFieldsForButton(editForm)
     formName.value = profileTitle.textContent
     formProfession.value = profileText.textContent
     openPopup(editProfileBlock)
 })
 
 addItemBtn.addEventListener('click', () => {
-    addForm.reset()
+    addForm.reset()    
+    assessFieldsForButton(addForm)
     openPopup(addBlock)
 })
 
