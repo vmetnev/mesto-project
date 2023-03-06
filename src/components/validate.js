@@ -18,6 +18,16 @@ const form2Config = {
     validationAtOpen: false
 }
 
+const form3Config = {
+    formSelector: '.popup__form[name="form-update-avatar"]',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible',
+    validationAtOpen: true
+}
+
 const globalFormConfig = {
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
@@ -27,9 +37,13 @@ const globalFormConfig = {
     validationAtOpen: true
 }
 
+
+
+
 function startValidation() {
     enableValidation(form1Config)
     enableValidation(form2Config)
+    enableValidation(form3Config)
 }
 
 function enableValidation(config) {
@@ -52,7 +66,7 @@ function handleFormSubmit(evt) {
     const form = evt.currentTarget;
     const isValid = form.checkValidity()
     if (isValid) {
-        form.reset()
+        // form.reset()
     }
 }
 

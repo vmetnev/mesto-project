@@ -17,13 +17,15 @@
     <main class="main">
 
         <section class="profile">
-            <img src="<%=require('./images/image.png')%>" alt="фото-жак-ив-кусто" class="profile__avatar">
+            <div class="profile__image-holder">
+                <img alt="фото-профайла" class="profile__avatar">
+            </div>
             <div class="profile__info">
                 <div class="profile__top">
-                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <h1 class="profile__title"></h1>
                     <button type="button" class="profile__edit-button"></button>
                 </div>
-                <p class="profile__text">Исследователь океана</p>
+                <p class="profile__text"></p>
             </div>
             <button type="button" class="profile__add-button"></button>
         </section>
@@ -56,7 +58,7 @@
                     <span class="popup__error_visible form-profession-error"></span>
 
 
-                    <button type="submit" id="submit" class="edit__submit popup__button">Сохранить</button>
+                    <button type="submit" id="profile-submit" class="edit__submit popup__button">Сохранить</button>
                 </fieldset>
             </form>
             <button type="button" class="popup__close" value=" "></button>
@@ -68,7 +70,6 @@
             <form class="new-item__form popup__form" name="form-new-item">
                 <h3 class="new-item__title">Новое место</h3>
                 <fieldset class="new-item__fieldset">
-
                     <input type="text" class="new-item__input popup__input" name="item-text" id="item-text"
                         placeholder="Название" required minlength="2" maxlength="30" pattern="^[A-Za-zА-ЯЁа-яё\- ]+$"
                         data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
@@ -77,14 +78,29 @@
                     <input type="url" class="new-item__input popup__input" name="item-link" id="item-link"
                         placeholder="Ссылка на картинку" required>
                     <span class="popup__error_visible item-link-error"></span>
-
-
-                    <button type="submit" id="submit" class="new-item__submit popup__button">Сохранить</button>
+                    <button type="submit" id="newitem-submit" class="new-item__submit popup__button">Сохранить</button>
                 </fieldset>
             </form>
             <button type="button" class="popup__close" value=" "></button>
         </div>
     </div>
+
+
+    <div class="popup update">
+        <div class="update__container">
+            <form class="update__form popup__form" name="form-update-avatar">
+                <h3 class="update__title">Обновить аватар</h3>
+                <fieldset class="update__fieldset">
+                    <input type="url" class="update__input popup__input" name="update__link" id="item-link"
+                        placeholder="Ссылка на картинку" required>
+                    <span class="popup__error_visible"></span>
+                    <button type="submit" id="update-submit" class="update__submit popup__button">Сохранить</button>
+                </fieldset>
+                <button type="button" class="popup__close" value=" "></button>
+            </form>
+        </div>
+    </div>
+
 
     <div class="popup view">
         <div class="view__container">
@@ -100,7 +116,12 @@
             <div class="element__info">
                 <h2 class="element__text">Гора Эльбрус</h2>
                 <button type="button" class="element__delete"></button>
-                <button type="button" class="element__heart"></button>
+                
+                <div class="element__like-holder">
+                    <button type="button" class="element__heart"></button>
+                    <p class="element__likes">4</p>
+                </div>
+
             </div>
         </article>
     </template>

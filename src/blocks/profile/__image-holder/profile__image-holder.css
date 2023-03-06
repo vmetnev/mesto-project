@@ -1,0 +1,22 @@
+.profile__image-holder {    
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    caret-color: transparent;  
+}
+
+.profile__image-holder:hover::after {
+    margin: 0;        
+    content: url('../../../images/edit.png');      
+    width: 120px;
+    height: 70px;
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    text-align: center;
+    padding-top:50px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+

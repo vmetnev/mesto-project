@@ -4,36 +4,16 @@ import {
     hideClosestPopup
 } from "./modal.js"
 
-const initialCards = [{
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
 
-function createCard(cardTemplate, name, link) {   
+
+function createCard(cardTemplate, name, link,likes) {   
     const cardInstance = cardTemplate.querySelector('.element').cloneNode(true);
     const cardImage = cardInstance.querySelector('.element__image')
     cardInstance.querySelector('.element__text').textContent = name
+    cardInstance.querySelector('.element__likes').textContent = likes
+    console.log(link)
+
+
     cardImage.src = link
     cardImage.alt = name
     cardImage.addEventListener('click', (evt)=>{
@@ -64,7 +44,7 @@ function viewImage(evt,viewItemBlock) {
 }
 
 export {
-    initialCards,
+    
     createCard,
     deleteCard,
     likeCard
