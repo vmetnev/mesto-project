@@ -101,6 +101,20 @@
         </div>
     </div>
 
+    <div class="confirm popup">
+        <div class="confirm__container">
+            <h3 class="confirm__title">Вы уверены?</h3>
+            <form class="confirm__form popup__form" name="form-confirm">
+                <fieldset class="confirm__fieldset">
+                    <input type="text" class="popup__input confirm__input">
+                    <button type="submit" id="confirm-submit" class="confirm__submit popup__button">Да</button>
+                </fieldset>
+            </form>
+            <button type="button" class="popup__close" value=" "></button>
+        </div>
+    </div>
+
+
 
     <div class="popup view">
         <div class="view__container">
@@ -115,8 +129,8 @@
             <img src="<%=require('./images/elbrus1.png')%>" alt="фото-гора-эльбрус-2" class="element__image">
             <div class="element__info">
                 <h2 class="element__text">Гора Эльбрус</h2>
-                <button type="button" class="element__delete"></button>
-                
+                <div type="button" class="element__delete"></div>
+
                 <div class="element__like-holder">
                     <button type="button" class="element__heart"></button>
                     <p class="element__likes">4</p>

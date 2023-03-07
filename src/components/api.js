@@ -65,7 +65,7 @@ function getAllCards(){
     })
 }
 
-function setLike(id){
+function setLike(id){    
     return fetch(`${config.baseUrl}/cards/likes/${id}`, {
         method: 'PUT',
         headers: config.headers        
@@ -78,7 +78,7 @@ function setLike(id){
     })
 }
 
-function deleteLike(id){
+function deleteLike(id){    
     return fetch(`${config.baseUrl}/cards/likes/${id}`, {
         method: 'DELETE',
         headers: config.headers        
@@ -92,8 +92,6 @@ function deleteLike(id){
 }
 
 function addCard(obj){
-    console.log(obj)
-
     return fetch(`${config.baseUrl}/cards`, {
         method: 'POST',
         headers: config.headers,
@@ -105,9 +103,22 @@ function addCard(obj){
             return Promise.reject(`ошибка ${res.status}`)
         }
     })
-
-
 }
+
+function removeCard(id){
+    return fetch(`${config.baseUrl}/cards/${id}`, {
+        method: 'DELETE',
+        headers: config.headers
+        
+    }).then(res => {
+        if (res.ok) {
+            return res.json()
+        } else {
+            return Promise.reject(`ошибка ${res.status}`)
+        }
+    })
+}
+
 
 export {
     getProfileInfo,
@@ -116,5 +127,6 @@ export {
     getAllCards,
     setLike,
     deleteLike,
-    addCard
+    addCard,
+    removeCard
 }

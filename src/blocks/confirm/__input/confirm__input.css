@@ -1,0 +1,11 @@
+.confirm__input{
+    visibility:visible;
+    width:0;
+    height:0;
+    border:none;
+    outline:none;
+}
+
+.confirm__input:focus{
+    outline:none;
+}

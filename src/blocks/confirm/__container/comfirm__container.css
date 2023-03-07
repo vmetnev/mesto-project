@@ -1,0 +1,21 @@
+.confirm__container {
+    background-color: rgba(255, 255, 255, 1);
+    color: #000000;
+    width: 430px;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border-radius: 10px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    z-index: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+    position: relative;
+}
+
+@media screen and (max-width:879px) {
+    .confirm__container {
+        width: 282px;
+    }
+}

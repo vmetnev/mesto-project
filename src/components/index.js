@@ -35,7 +35,8 @@ import {
     getAllCards,
     setLike,
     deleteLike,
-    addCard
+    addCard,
+    removeCard
 } from "./api.js"
 
 
@@ -70,11 +71,22 @@ profileImageHolder.addEventListener('click', () => {
 
 function submitNewAvatar(evt) {
     evt.preventDefault()
+    buttonPending(updateBlockFormButton)
     updateAvatar({
         avatar: updateBlockFormInput.value
-    }).then(data => console.log('data')).catch(error => console.log(error))
+    }).then(data => {
+        buttonSaved(updateBlockFormButton)
+
+        setTimeout(() => {
+            buttonNormal(updateBlockFormButton)
+        }, 1000)
+
+
+        console.log('data')
+    }).catch(error => console.log(error))
     profileAvatar.src = updateBlockFormInput.value
     closePopup(updateBlock)
+    // timeout
 }
 
 // Obtaining profile data from server
@@ -84,17 +96,35 @@ getProfileInfo().then(data => {
     profileTitle.textContent = (data.name).replace(regex, '')
     profileText.textContent = (data.about).replace(regex, '')
     profileAvatar.src = data.avatar
+    obtainCardsFromServer()
 }).catch(error => console.log(error))
 
 const cartHolder = document.querySelector('.elements')
 const cardTemplate = document.querySelector('#card-template').content;
 
-getAllCards().then(data => {
-    console.log(data)
-    data.forEach((item) => {
-        cartHolder.append(createCard(cardTemplate, item._id, item.name, item.link, item.likes.length))
-    })
-}).catch(error => console.log(error))
+function obtainCardsFromServer() {
+    getAllCards().then(data => {
+        console.log(data)
+        let ownership = "server"
+        let ownLike = false
+        data.forEach((item) => {
+            if (item.owner.name === profileTitle.textContent) {
+                ownership = "own"
+            } else {
+                ownership = "server"
+            }
+            item.likes.forEach(like => {
+                console.log(like.name)
+                if (like.name === profileTitle.textContent) {
+                    console.log(like.name + " =? " + profileTitle.textContent)
+                    ownLike = true
+                }
+            })
+            cartHolder.append(createCard(cardTemplate, item._id, item.name, item.link, item.likes.length, ownership, ownLike))
+            ownLike = false
+        })
+    }).catch(error => console.log(error))
+}
 
 
 document.querySelectorAll('.popup__close').forEach((item) => {
@@ -109,7 +139,6 @@ const addFormName = addForm.querySelector('input[name="item-text"]')
 const addFormLink = addForm.querySelector('input[name="item-link"]')
 addForm.addEventListener('submit', submitNewCard)
 const addItemBtn = profileBlock.querySelector('.profile__add-button')
-
 
 
 editForm.addEventListener('submit', submitProfile)
@@ -154,19 +183,14 @@ function submitProfile(evt) {
 
 function submitNewCard(evt) {
     evt.preventDefault()
-    console.log(evt.target)
-
-
     buttonPending(addFormSubmitBtn)
-
     const newText = addFormName.value
     const newImageLink = addFormLink.value
-
     addCard({
         name: newText,
         link: newImageLink
     }).then(data => {
-        cartHolder.prepend(createCard(cardTemplate, data._id, data.name, data.link, data.likes.length,"own"))
+        cartHolder.prepend(createCard(cardTemplate, data._id, data.name, data.link, data.likes.length, "own"))
         buttonSaved(addFormSubmitBtn)
         setTimeout(() => {
             buttonNormal(addFormSubmitBtn)

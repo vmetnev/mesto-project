@@ -1,0 +1,11 @@
+.confirm__fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (max-width:879px) {
+    .confirm__fieldset {
+        margin: 0;
+    }
+}

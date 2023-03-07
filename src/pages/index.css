@@ -107,3 +107,14 @@
 @import url('../blocks/update/__input/update__input.css');
 @import url('../blocks/update/__submit/update__submit.css');
 @import url('../blocks/update/__title/update__title.css');
+
+
+/* -------------------------------------------------------------------------------- */
+/* CONFIRM */
+/* -------------------------------------------------------------------------------- */
+@import url('../blocks/confirm/confirm.css');
+@import url('../blocks/confirm/__container/comfirm__container.css');
+@import url('../blocks/confirm/__fieldset.css/confirm__fieldset.css');
+@import url('../blocks/confirm/__submit/confrm__submit.css');
+@import url('../blocks/confirm/__title/confirm__title.css');
+@import url('../blocks/confirm/__input/confirm__input.css');

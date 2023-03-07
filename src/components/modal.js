@@ -3,7 +3,7 @@ import {
     handleMouseUp,
     handleClick,
     handleEsc
-} from "./utils.js"
+} from "./utils.js" 
 
 import {
     startValidation,
@@ -42,7 +42,6 @@ function buttonSaved(btn) {
 function buttonNormal(btn) {
     btn.textContent = "Сохранить"
 }
-
 
 export {
     openPopup,

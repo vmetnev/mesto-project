@@ -1,0 +1,30 @@
+.confirm__submit {
+    display: block;
+    width: 358px;
+    height: 50px;
+    padding: 0;
+    margin: 18px auto 30px auto;
+    border: none;
+    background-color: rgba(0, 0, 0, 1);
+    color: #FFFFFF;
+    border-radius: 2px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.confirm__submit:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+}
+
+@media screen and (max-width:879px) {
+    .confirm__submit {
+        width: 238px;
+        height: 46px;
+        font-size: 14px;
+        line-height: 17px;
+        margin: 45px auto 25px auto;
+    }
+}
