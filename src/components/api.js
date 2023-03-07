@@ -65,10 +65,56 @@ function getAllCards(){
     })
 }
 
+function setLike(id){
+    return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+        method: 'PUT',
+        headers: config.headers        
+    }).then(res => {
+        if (res.ok) {
+            return res.json()
+        } else {
+            return Promise.reject(`ошибка ${res.status}`)
+        }
+    })
+}
+
+function deleteLike(id){
+    return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+        method: 'DELETE',
+        headers: config.headers        
+    }).then(res => {
+        if (res.ok) {
+            return res.json()
+        } else {
+            return Promise.reject(`ошибка ${res.status}`)
+        }
+    })
+}
+
+function addCard(obj){
+    console.log(obj)
+
+    return fetch(`${config.baseUrl}/cards`, {
+        method: 'POST',
+        headers: config.headers,
+        body: JSON.stringify(obj)
+    }).then(res => {
+        if (res.ok) {
+            return res.json()
+        } else {
+            return Promise.reject(`ошибка ${res.status}`)
+        }
+    })
+
+
+}
 
 export {
     getProfileInfo,
     updateProfile,
     updateAvatar,
-    getAllCards
+    getAllCards,
+    setLike,
+    deleteLike,
+    addCard
 }

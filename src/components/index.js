@@ -1,6 +1,6 @@
 import '../pages/index.css'
 
-import {    
+import {
     createCard,
     deleteCard,
     likeCard
@@ -32,7 +32,10 @@ import {
     getProfileInfo,
     updateProfile,
     updateAvatar,
-    getAllCards
+    getAllCards,
+    setLike,
+    deleteLike,
+    addCard
 } from "./api.js"
 
 
@@ -86,11 +89,11 @@ getProfileInfo().then(data => {
 const cartHolder = document.querySelector('.elements')
 const cardTemplate = document.querySelector('#card-template').content;
 
-getAllCards().then(data=>{
+getAllCards().then(data => {
     console.log(data)
     data.forEach((item) => {
-        cartHolder.append(createCard(cardTemplate, item.name, item.link, item.likes.length))
-    })    
+        cartHolder.append(createCard(cardTemplate, item._id, item.name, item.link, item.likes.length))
+    })
 }).catch(error => console.log(error))
 
 
@@ -101,6 +104,7 @@ document.querySelectorAll('.popup__close').forEach((item) => {
 // Identification of new item block
 const addBlock = document.querySelector('.new-item')
 const addForm = document.querySelector('.new-item__form')
+const addFormSubmitBtn = document.querySelector('.new-item__submit')
 const addFormName = addForm.querySelector('input[name="item-text"]')
 const addFormLink = addForm.querySelector('input[name="item-link"]')
 addForm.addEventListener('submit', submitNewCard)
@@ -126,7 +130,6 @@ addItemBtn.addEventListener('click', () => {
 
 function submitProfile(evt) {
     evt.preventDefault()
-
     if (profileTitle.textContent !== formName.value || profileText.textContent !== formProfession.value) {
         profileTitle.textContent = formName.value
         profileText.textContent = formProfession.value
@@ -151,22 +154,29 @@ function submitProfile(evt) {
 
 function submitNewCard(evt) {
     evt.preventDefault()
+    console.log(evt.target)
+
+
+    buttonPending(addFormSubmitBtn)
 
     const newText = addFormName.value
     const newImageLink = addFormLink.value
 
-    const img = new Image()
-    img.src = newImageLink
-
-    img.onerror = () => {
-        return
-    }
-
-    img.onload = () => {
-        cartHolder.prepend(createCard(cardTemplate, newText, newImageLink))
+    addCard({
+        name: newText,
+        link: newImageLink
+    }).then(data => {
+        cartHolder.prepend(createCard(cardTemplate, data._id, data.name, data.link, data.likes.length,"own"))
+        buttonSaved(addFormSubmitBtn)
+        setTimeout(() => {
+            buttonNormal(addFormSubmitBtn)
+        }, 1000)
         closePopup(addBlock)
         addForm.reset()
-    }
+
+    }).catch(error => {
+        console.log(error)
+    })
 }
 
 startValidation()
