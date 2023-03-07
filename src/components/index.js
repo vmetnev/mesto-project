@@ -76,13 +76,9 @@ function submitNewAvatar(evt) {
         avatar: updateBlockFormInput.value
     }).then(data => {
         buttonSaved(updateBlockFormButton)
-
         setTimeout(() => {
             buttonNormal(updateBlockFormButton)
-        }, 1000)
-
-
-        console.log('data')
+        }, 1000)        
     }).catch(error => console.log(error))
     profileAvatar.src = updateBlockFormInput.value
     closePopup(updateBlock)
@@ -103,8 +99,7 @@ const cartHolder = document.querySelector('.elements')
 const cardTemplate = document.querySelector('#card-template').content;
 
 function obtainCardsFromServer() {
-    getAllCards().then(data => {
-        console.log(data)
+    getAllCards().then(data => {        
         let ownership = "server"
         let ownLike = false
         data.forEach((item) => {
@@ -113,10 +108,8 @@ function obtainCardsFromServer() {
             } else {
                 ownership = "server"
             }
-            item.likes.forEach(like => {
-                console.log(like.name)
-                if (like.name === profileTitle.textContent) {
-                    console.log(like.name + " =? " + profileTitle.textContent)
+            item.likes.forEach(like => {                
+                if (like.name === profileTitle.textContent) {                
                     ownLike = true
                 }
             })

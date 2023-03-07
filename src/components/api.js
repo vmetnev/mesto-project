@@ -20,8 +20,6 @@ function getProfileInfo() {
 }
 
 function updateProfile(obj) {
-    console.log(obj)
-
     return fetch(`${config.baseUrl}/users/me`, {
         method: 'PATCH',
         headers: config.headers,
@@ -36,8 +34,6 @@ function updateProfile(obj) {
 }
 
 function updateAvatar(obj) {
-    console.log(obj)
-
     return fetch(`${config.baseUrl}/users/me/avatar`, {
         method: 'PATCH',
         headers: config.headers,

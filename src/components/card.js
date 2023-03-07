@@ -36,7 +36,6 @@ function createCard(cardTemplate, id, name, link, likes, ownership = "server", o
 const confirmPopup = document.querySelector('.confirm')
 const confirmForm = confirmPopup.querySelector('.confirm__form')
 const confirmFormButtonSubmit = confirmPopup.querySelector('.confirm__submit')
-console.log(confirmFormButtonSubmit)
 confirmForm.addEventListener('submit', confirmFormSubmit)
 confirmForm.addEventListener('keydown', () => {
 
@@ -44,17 +43,14 @@ confirmForm.addEventListener('keydown', () => {
 
 let elementToDelete = ""
 
-function deleteCard(evt) {
-    console.log(evt.target.closest('.element').getAttribute('_id'))
+function deleteCard(evt) {    
     elementToDelete = evt.target.closest('.element').getAttribute('_id')
     openPopup(confirmPopup)
     confirmForm.querySelector('.confirm__input').focus()
 }
 
 function confirmFormSubmit(evt) {
-    evt.preventDefault()
-    console.log(evt.currentTarget)
-    console.log('here')
+    evt.preventDefault()    
     document.querySelector(`[_id="${elementToDelete}"]`).remove();
     closePopup(confirmPopup)
     removeCard(elementToDelete)
@@ -69,8 +65,7 @@ function likeCard(evt) {
     target.classList.toggle('element__heart_active')
 
     if (target.classList.contains('element__heart_active')) {
-        setLike(_id).then(data => {
-            console.log(data)
+        setLike(_id).then(data => {            
             targetLikeElem.textContent = data.likes.length
         }).catch(error => console.log(error))
     } else {
