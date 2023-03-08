@@ -17,9 +17,7 @@ import {
     openPopup,
     closePopup,
     hideClosestPopup,
-    buttonPending,
-    buttonNormal,
-    buttonSaved
+    setButton
 } from "./modal.js"
 
 import {
@@ -57,10 +55,7 @@ const formProfession = editProfileBlock.querySelector('input[name="form-professi
 const updateBlock = document.querySelector('.update')
 const updateBlockForm = updateBlock.querySelector('.update__form')
 const updateBlockFormInput = updateBlockForm.querySelector('input')
-
-
 const updateBlockFormButton = updateBlockForm.querySelector('.update__submit')
-
 updateBlockForm.addEventListener('submit', submitNewAvatar)
 
 profileImageHolder.addEventListener('click', () => {
@@ -69,60 +64,72 @@ profileImageHolder.addEventListener('click', () => {
     openPopup(updateBlock)
 })
 
-function submitNewAvatar(evt) {
-    evt.preventDefault()
-    buttonPending(updateBlockFormButton)
-    updateAvatar({
-        avatar: updateBlockFormInput.value
-    }).then(data => {
-        buttonSaved(updateBlockFormButton)
-        setTimeout(() => {
-            buttonNormal(updateBlockFormButton)
-        }, 1000)        
-    }).catch(error => console.log(error))
-    profileAvatar.src = updateBlockFormInput.value
-    closePopup(updateBlock)
-    // timeout
-}
-
-// Obtaining profile data from server
-
-getProfileInfo().then(data => {
-    const regex = /[^A-Za-zА-ЯЁа-яё\- ]/g;
-    profileTitle.textContent = (data.name).replace(regex, '')
-    profileText.textContent = (data.about).replace(regex, '')
-    profileAvatar.src = data.avatar
-    obtainCardsFromServer()
-}).catch(error => console.log(error))
-
+// Identification of card holder
 const cartHolder = document.querySelector('.elements')
 const cardTemplate = document.querySelector('#card-template').content;
 
-function obtainCardsFromServer() {
-    getAllCards().then(data => {        
-        let ownership = "server"
-        let ownLike = false
-        data.forEach((item) => {
-            if (item.owner.name === profileTitle.textContent) {
-                ownership = "own"
-            } else {
-                ownership = "server"
+// Obtaining data from server
+
+Promise.all([getProfileInfo(), getAllCards()]).then(([userData, cards]) => {
+
+    // Profile data
+    const regex = /[^A-Za-zА-ЯЁа-яё\- ]/g;
+    profileTitle.textContent = (userData.name).replace(regex, '')
+    profileText.textContent = (userData.about).replace(regex, '')
+    profileAvatar.src = userData.avatar
+
+    // Cards from server
+    let ownership = "server"
+    let ownLike = false
+    cards.forEach((item) => {
+        if (item.owner.name === profileTitle.textContent) {
+            ownership = "own"
+        } else {
+            ownership = "server"
+        }
+        item.likes.forEach(like => {
+            if (like.name === profileTitle.textContent) {
+                ownLike = true
             }
-            item.likes.forEach(like => {                
-                if (like.name === profileTitle.textContent) {                
-                    ownLike = true
-                }
-            })
-            cartHolder.append(createCard(cardTemplate, item._id, item.name, item.link, item.likes.length, ownership, ownLike))
-            ownLike = false
         })
-    }).catch(error => console.log(error))
-}
+        cartHolder.append(createCard(cardTemplate, item._id, item.name, item.link, item.likes.length, ownership, ownLike))
+        ownLike = false
+    })
+}).catch(error => {
+    console.log(error)
+})
 
 
+// Setting close buttons
 document.querySelectorAll('.popup__close').forEach((item) => {
     item.addEventListener('click', hideClosestPopup)
 })
+
+function submitNewAvatar(evt) {
+    evt.preventDefault()
+    let processError = false
+    setButton(updateBlockFormButton, "Сохранение...")
+    updateAvatar({
+        avatar: updateBlockFormInput.value
+    }).then(data => {
+        profileAvatar.src = updateBlockFormInput.value
+        setButton(updateBlockFormButton, "Сохранено")
+        closePopup(updateBlock)
+    }).catch(error => {
+        processError = true
+        setButton(updateBlockFormButton, "Ошибка")
+        console.log(error)
+    }).finally(() => {
+        setTimeout(() => {
+            setButton(updateBlockFormButton, "Сохранить")
+        }, 1000)
+    })
+
+
+
+}
+
+
 
 // Identification of new item block
 const addBlock = document.querySelector('.new-item')
@@ -152,23 +159,37 @@ addItemBtn.addEventListener('click', () => {
 
 function submitProfile(evt) {
     evt.preventDefault()
+    let processError = false
+
     if (profileTitle.textContent !== formName.value || profileText.textContent !== formProfession.value) {
         profileTitle.textContent = formName.value
         profileText.textContent = formProfession.value
-        buttonPending(editFormSubmitButton)
+        setButton(editFormSubmitButton, "Сохранение...")
         updateProfile({
             name: formName.value,
             about: formProfession.value
         }).then(data => {
-            closePopup(editProfileBlock)
-            buttonSaved(editFormSubmitButton)
-            setTimeout(() => {
-                buttonNormal(editFormSubmitButton)
-            }, 1000)
+            setButton(editFormSubmitButton, "Сохранено")
         }).catch(error => {
+            processError = true
             console.log(error)
-            buttonNormal(editFormSubmitButton)
+            setButton(editFormSubmitButton, "Ошибка")
+        }).finally(() => {
+            if (!processError) {
+                closePopup(editProfileBlock)
+                setTimeout(() => {
+                    setButton(editFormSubmitButton, "Сохранить")
+                }, 1000)
+            } else {
+                setTimeout(() => {
+                    setButton(editFormSubmitButton, "Сохранить")
+                }, 1000)
+            }
         })
+
+
+
+
     } else {
         closePopup(editProfileBlock)
     }
@@ -176,23 +197,36 @@ function submitProfile(evt) {
 
 function submitNewCard(evt) {
     evt.preventDefault()
-    buttonPending(addFormSubmitBtn)
+    let processError = false
+    setButton(addFormSubmitBtn, "Сохранение...")
     const newText = addFormName.value
     const newImageLink = addFormLink.value
+
     addCard({
         name: newText,
         link: newImageLink
     }).then(data => {
         cartHolder.prepend(createCard(cardTemplate, data._id, data.name, data.link, data.likes.length, "own"))
-        buttonSaved(addFormSubmitBtn)
-        setTimeout(() => {
-            buttonNormal(addFormSubmitBtn)
-        }, 1000)
-        closePopup(addBlock)
-        addForm.reset()
-
+        setButton(addFormSubmitBtn, "Сохранено")
     }).catch(error => {
+        processError = true
         console.log(error)
+        setButton(addFormSubmitBtn, "Ошибка")
+        setTimeout(() => {
+            setButton(addFormSubmitBtn, "Сохранить")
+        }, 2000)
+    }).finally(() => {
+        if (!processError) {
+            setTimeout(() => {
+                setButton(addFormSubmitBtn, "Сохранить")
+            }, 2000)
+            closePopup(addBlock)
+            addForm.reset()
+        } else {
+            setTimeout(() => {
+                setButton(addFormSubmitBtn, "Сохранить")
+            }, 2000)
+        }
     })
 }
 

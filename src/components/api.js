@@ -6,17 +6,19 @@ const config = {
     }
 }
 
+function checkResponse(res) {
+    if (res.ok) {
+        return res.json()
+    } else {
+        return Promise.reject(`ошибка ${res.status}`)
+    }
+}
+
 function getProfileInfo() {
     return fetch(`${config.baseUrl}/users/me`, {
         method: 'GET',
         headers: config.headers
-    }).then(res => {
-        if (res.ok) {
-            return res.json()
-        } else {
-            return Promise.reject(`ошибка ${res.status}`)
-        }
-    })
+    }).then(checkResponse)
 }
 
 function updateProfile(obj) {
@@ -24,13 +26,7 @@ function updateProfile(obj) {
         method: 'PATCH',
         headers: config.headers,
         body: JSON.stringify(obj)
-    }).then(res => {
-        if (res.ok) {
-            return res.json()
-        } else {
-            return Promise.reject(`ошибка ${res.status}`)
-        }
-    })
+    }).then(checkResponse)
 }
 
 function updateAvatar(obj) {
@@ -52,39 +48,21 @@ function getAllCards(){
     return fetch(`${config.baseUrl}/cards`, {
         method: 'GET',
         headers: config.headers        
-    }).then(res => {
-        if (res.ok) {
-            return res.json()
-        } else {
-            return Promise.reject(`ошибка ${res.status}`)
-        }
-    })
+    }).then(checkResponse)
 }
 
 function setLike(id){    
     return fetch(`${config.baseUrl}/cards/likes/${id}`, {
         method: 'PUT',
         headers: config.headers        
-    }).then(res => {
-        if (res.ok) {
-            return res.json()
-        } else {
-            return Promise.reject(`ошибка ${res.status}`)
-        }
-    })
+    }).then(checkResponse)
 }
 
 function deleteLike(id){    
     return fetch(`${config.baseUrl}/cards/likes/${id}`, {
         method: 'DELETE',
         headers: config.headers        
-    }).then(res => {
-        if (res.ok) {
-            return res.json()
-        } else {
-            return Promise.reject(`ошибка ${res.status}`)
-        }
-    })
+    }).then(checkResponse)
 }
 
 function addCard(obj){
@@ -92,27 +70,14 @@ function addCard(obj){
         method: 'POST',
         headers: config.headers,
         body: JSON.stringify(obj)
-    }).then(res => {
-        if (res.ok) {
-            return res.json()
-        } else {
-            return Promise.reject(`ошибка ${res.status}`)
-        }
-    })
+    }).then(checkResponse)
 }
 
 function removeCard(id){
     return fetch(`${config.baseUrl}/cards/${id}`, {
         method: 'DELETE',
-        headers: config.headers
-        
-    }).then(res => {
-        if (res.ok) {
-            return res.json()
-        } else {
-            return Promise.reject(`ошибка ${res.status}`)
-        }
-    })
+        headers: config.headers        
+    }).then(checkResponse)
 }
 
 

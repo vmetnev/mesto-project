@@ -1,7 +1,8 @@
 import {
     openPopup,
     closePopup,
-    hideClosestPopup
+    hideClosestPopup,
+    setButton
 } from "./modal.js"
 
 let mouseDownTarget = ""

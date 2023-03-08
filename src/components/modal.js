@@ -31,23 +31,13 @@ function hideClosestPopup(evt) {
     closePopup(elementToClose)
 }
 
-function buttonPending(btn) {
-    btn.textContent = "Сохранение..."
-}
-
-function buttonSaved(btn) {
-    btn.textContent = "Сохранено"
-}
-
-function buttonNormal(btn) {
-    btn.textContent = "Сохранить"
+function setButton(btn,message){
+    btn.textContent = message
 }
 
 export {
     openPopup,
     closePopup,
     hideClosestPopup,
-    buttonPending,
-    buttonNormal,
-    buttonSaved
+    setButton
 }
