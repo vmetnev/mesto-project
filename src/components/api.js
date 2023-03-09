@@ -34,38 +34,32 @@ function updateAvatar(obj) {
         method: 'PATCH',
         headers: config.headers,
         body: JSON.stringify(obj)
-    }).then(res => {
-        if (res.ok) {
-            return res.json()
-        } else {
-            return Promise.reject(`ошибка ${res.status}`)
-        }
-    })
+    }).then(checkResponse)
 
 }
 
-function getAllCards(){
+function getAllCards() {
     return fetch(`${config.baseUrl}/cards`, {
         method: 'GET',
-        headers: config.headers        
+        headers: config.headers
     }).then(checkResponse)
 }
 
-function setLike(id){    
+function setLike(id) {
     return fetch(`${config.baseUrl}/cards/likes/${id}`, {
         method: 'PUT',
-        headers: config.headers        
+        headers: config.headers
     }).then(checkResponse)
 }
 
-function deleteLike(id){    
+function deleteLike(id) {
     return fetch(`${config.baseUrl}/cards/likes/${id}`, {
         method: 'DELETE',
-        headers: config.headers        
+        headers: config.headers
     }).then(checkResponse)
 }
 
-function addCard(obj){
+function addCard(obj) {
     return fetch(`${config.baseUrl}/cards`, {
         method: 'POST',
         headers: config.headers,
@@ -73,10 +67,10 @@ function addCard(obj){
     }).then(checkResponse)
 }
 
-function removeCard(id){
+function removeCard(id) {
     return fetch(`${config.baseUrl}/cards/${id}`, {
         method: 'DELETE',
-        headers: config.headers        
+        headers: config.headers
     }).then(checkResponse)
 }
 
