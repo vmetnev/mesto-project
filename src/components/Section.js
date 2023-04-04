@@ -8,8 +8,7 @@ export default class Section {
   }
 
   addItem(item) {
-    console.log(item)
-    console.log('addingItem')
+    
     document.querySelector(this.htmlSelector).prepend(item)
   }
 }

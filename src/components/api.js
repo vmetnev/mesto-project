@@ -6,13 +6,16 @@ const config = {
   }
 }
 
-
 class Api {
-  constructor() {    
+  constructor() {
     this._baseUrl = config.baseUrl
     this._headers = config.headers
   }
-  
+
+  _request(url, options) {
+    return fetch(url, options).then(this._getResponseData)
+  }
+
   _getResponseData(res) {
     if (res.ok) {
       return res.json();
@@ -21,98 +24,72 @@ class Api {
     }
   }
 
+
+
   getUserData() {
-    return fetch(`${this._baseUrl}/users/me`, {
-        headers: this._headers
-      })
-      .then((res) => {
-        return this._getResponseData(res);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    return this._request(`${this._baseUrl}/users/me`, {
+      headers: this._headers
+    })
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-        headers: this._headers
-      })
-      .then((res) => {
-        return this._getResponseData(res);
-      })
+    return this._request(`${this._baseUrl}/cards`, {
+      headers: this._headers
+    })
   }
 
   saveProfileData(nameValue, aboutValue) {
-    return fetch(`${this._baseUrl}/users/me`, {
-        method: 'PATCH',
-        headers: this._headers,
-        body: JSON.stringify({
-          name: nameValue,
-          about: aboutValue
-        })
+    return this._request(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: nameValue,
+        about: aboutValue
       })
-      .then((res) => {
-        return this._getResponseData(res);
-      })
+    })
   }
 
   saveNewCard(placeName, placeLink) {
-    return fetch(`${this._baseUrl}/cards`, {
-        method: 'POST',
-        headers: this._headers,
-        body: JSON.stringify({
-          name: placeName,
-          link: placeLink
-        })
+    return this._request(`${this._baseUrl}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: placeName,
+        link: placeLink
       })
-      .then((res) => {
-        return this._getResponseData(res)
-      })
+    })
   }
 
   putLikeToCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-        method: 'PUT',
-        headers: this._headers
-      })
-      .then((res) => {
-        return this._getResponseData(res)
-      })
+    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: this._headers
+    })
   }
 
   deleteLikeToCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-        method: 'DELETE',
-        headers: this._headers
-      })
-      .then((res) => {
-        return this._getResponseData(res)
-      })
+    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
   }
 
   deleteCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}`, {
-        method: 'DELETE',
-        headers: this._headers
-      })
-      .then((res) => {
-        return this._getResponseData(res)
-      })
+    return this._request(`${this._baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
   }
 
   changeAvatar(avatar) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-        method: 'PATCH',
-        headers: this._headers,
-        body: JSON.stringify({
-          avatar: avatar
-        }),
-      })
-      .then((res) => {
-        return this._getResponseData(res)
-      })
+    return this._request(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: avatar
+      }),
+    })
   }
 }
 
 module.exports = Api
- 

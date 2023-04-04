@@ -2,15 +2,15 @@ import '../pages/index.css'
 
 import {
   Card
-} from './Card.js'
+} from '../components/Card.js'
 
 import {
   UserInfo
-} from './UserInfo'
+} from '../components/UserInfo'
 
 import {
   FormValidator
-} from './FormValidator.js'
+} from '../components/FormValidator.js'
 
 const validationSettings = {
   formSelector: '.form',
@@ -23,12 +23,12 @@ const validationSettings = {
 
 import {
   PopupWithForm
-} from './PopupWithForm.js'
+} from '../components/PopupWithForm.js'
 
 
 import {
   PopupWithImage
-} from './PopupWithImage.js'
+} from '../components/PopupWithImage.js'
 
 const popupWithImage = new PopupWithImage('.popup__open-image')
 const popupEditProfile = new PopupWithForm('.popup__edit-profile', handleProfileFormSubmit)
@@ -39,11 +39,11 @@ const validatorPopupEditProfile = new FormValidator(validationSettings, popupEdi
 const validatorPopupAddCard = new FormValidator(validationSettings, popupAddCard.form)
 const validatorPopupChangeAvatar = new FormValidator(validationSettings, popupChangeAvatar.form)
 
-import Api from './Api.js';
+import Api from '../components/Api.js';
 
 const api = new Api()
 
-import Section from './Section'
+import Section from '../components/Section'
 
 const profileFormButton = document.querySelector('.profile__edit-button');
 const placeFormButton = document.querySelector('.profile__add-button');
@@ -61,28 +61,39 @@ Promise.all(newPromises)
       initialCards,
       renderer
     }, '.elements__inner')
-
   }).catch((err) => {
     console.log(err)
+  }).finally(() => {
+    console.log('started')
   })
 
-function renderer(items, target) {
+function renderer(items) {
+  console.log(this)
   items.forEach((item) => {
-    const card = new Card(userId, item, '.card-template', api, popupWithImage)
-    const cardElement = card.generate();
-    document.querySelector(target).append(cardElement); // это тоже должно быть через секцию
+    const cardElement = createCard(item)
+    this.addItem(cardElement) // because this appears to be a section....
   });
+}
+
+function createCard(item) {
+  const card = new Card(userId, item, '.card-template', api, popupWithImage)
+  const cardElement = card.generate();
+  return cardElement
 }
 
 // ######################################################################################
 
-profileFormButton.addEventListener('click',  ()=> {
+profileFormButton.addEventListener('click', () => {
   popupEditProfile.open()
 });
 
 function handleProfileFormSubmit(data) {
-  userInfo.setUserInfo(data).then(data => {
+  userInfo.setUserInfo(data).then(data => {}).catch(error => {
+    console.log(error)
+  }).finally(() => {
+    popupEditProfile.submitButton.textContent = "Сохранить"
     popupEditProfile.close()
+    
   })
 }
 
@@ -93,22 +104,28 @@ placeFormButton.addEventListener('click', () => {
 })
 
 function handleNewPlaceFormSubmit(data) {
-  api.saveNewCard(data.name, data.link).then(resp => {    
-    let newCard = new Card(userId, resp, '.card-template', api, popupWithImage)
-    const newCardElement = newCard.generate();
-    section.addItem(newCardElement)
+  api.saveNewCard(data.name, data.link).then(resp => {
+    const newCard = createCard(resp)
+    section.addItem(newCard)
+  }).catch(error => {
+    console.log(error)
+  }).finally(() => {
+    popupAddCard.submitButton.textContent = "Сохранить"
     popupAddCard.close()
-  }) 
+  })
 }
 
 // ######################################################################################
 
-avatarFormButton.addEventListener('click',  ()=> {
+avatarFormButton.addEventListener('click', () => {
   popupChangeAvatar.open();
 })
 
 function handleAvatarFormSubmit(data) {
-  userInfo.setAvatar(data.link).then(resp => {
+  userInfo.setAvatar(data.link).then(resp => {}).catch(error => {
+    console.log(error)
+  }).finally(() => {
+    popupChangeAvatar.submitButton.textContent = "Сохранить"
     popupChangeAvatar.close();
   })
 }

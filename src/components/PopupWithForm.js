@@ -6,7 +6,7 @@ class PopupWithForm extends Popup {
   constructor(popupHtmlSelector, submitHandler) {
     super(popupHtmlSelector)
     this.popupHtmlSelector = popupHtmlSelector
-    this.el = document.querySelector(this.popupHtmlSelector)
+
     this.form = this.el.querySelector('form')
     this.submitHandler = submitHandler
     this.inputList = this.el.querySelectorAll('input')
@@ -63,15 +63,16 @@ class PopupWithForm extends Popup {
     errorSpans.forEach(errorSpan => {
       errorSpan.textContent = ""
     })
-
-    console.log(this.errorInputs)
-    console.log('supposed to close')
+    
     let errorInputs = this.form.querySelectorAll('.form__input_type_error')
-    errorInputs.forEach(errorInput => {
-      console.log('here')
+    errorInputs.forEach(errorInput => {      
       errorInput.classList.remove('form__input_type_error')
     })
     this.form.reset()
+    
+    document.removeEventListener('keydown', (evt) => {
+      this._handleKeyDown(evt)
+    });
   }
 }
 

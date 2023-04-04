@@ -9,8 +9,11 @@ class Popup {
     this.el.classList.add('popup_opened')
   }
 
-  close() {    
+  close() {
     this.el.classList.remove('popup_opened')
+    document.removeEventListener('keydown', (evt) => {
+      this._handleKeyDown(evt)
+    });
   }
 
   _handleEscClose() {
@@ -35,8 +38,8 @@ class Popup {
     })
 
     // close on overlay click
-    this.el.addEventListener('click', (evt) => {          
-      if (evt.currentTarget === evt.target) {        
+    this.el.addEventListener('click', (evt) => {
+      if (evt.currentTarget === evt.target) {
         this.close()
       }
     })

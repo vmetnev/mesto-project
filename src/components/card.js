@@ -22,14 +22,18 @@ class Card {
     this._element.querySelector('.elements__item').src = this.card.link
     this._element.querySelector('.elements__item').setAttribute('__id', this.card._id)
     this._element.querySelector('.elements__item').alt = this.card.name
+    this._likeCounter = this._element.querySelector('.elements__like-counter')
+    this._elementItem = this._element.querySelector('.elements__item')
+    this._elemenentLike = this._element.querySelector('.elements__like')
+    this._elementsDelete = this._element.querySelector('.elements__delete')
 
     if (this.card.likes) {
-      this._element.querySelector('.elements__like-counter').textContent = this.card.likes.length
+      this._likeCounter.textContent = this.card.likes.length
       if (this.card.likes.some(like => like._id === this.userId)) {
-        this._element.querySelector('.elements__like').classList.add('elements__like_active');
+        this._elemenentLike.classList.add('elements__like_active');
       }
     } else {
-      this._element.querySelector('.elements__like-counter').textContent = "0"
+      this._likeCounter.textContent = "0"
     }
     this._setEventListeners();
     return this._element;
@@ -37,17 +41,17 @@ class Card {
 
   _setEventListeners() {
     // open view popup
-    this._element.querySelector('.elements__item').addEventListener('click',  (evt)=> {        
+    this._elementItem.addEventListener('click', (evt) => {
       this.popupWithImage.open(evt.target.src, evt.target.alt)
     })
 
     // handle like
-    this._element.querySelector('.elements__like').addEventListener('click', (evt) => {
+    this._elemenentLike.addEventListener('click', (evt) => {
       if (evt.target.classList.contains('elements__like_active')) {
         this.api.deleteLikeToCard(this.card._id)
           .then((res) => {
             evt.target.classList.toggle('elements__like_active');
-            this._element.querySelector('.elements__like-counter').textContent = res.likes.length;
+            this._likeCounter.textContent = res.likes.length;
           })
           .catch((err) => {
             console.log(err)
@@ -56,7 +60,7 @@ class Card {
         this.api.putLikeToCard(this.card._id)
           .then((res) => {
             evt.target.classList.toggle('elements__like_active');
-            this._element.querySelector('.elements__like-counter').textContent = res.likes.length;
+            this._likeCounter.textContent = res.likes.length;
           })
           .catch((err) => {
             console.log(err)
@@ -66,9 +70,9 @@ class Card {
 
     // delete if available
     if (this.card.owner && this.userId !== this.card.owner._id) {
-      this._element.querySelector('.elements__delete').remove()
+      this._elementsDelete .remove()
     } else {
-      this._element.querySelector('.elements__delete').addEventListener('click', (evt) => {
+      this._elementsDelete .addEventListener('click', (evt) => {
         const elementItem = this._element.closest('.elements__container');
         this.api.deleteCard(this.card._id)
           .then(() => {

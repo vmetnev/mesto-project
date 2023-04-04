@@ -5,8 +5,7 @@ import {
 class PopupWithImage extends Popup {
   constructor(popupHtmlSelector) {
     super(popupHtmlSelector)
-    this.popupHtmlSelector = popupHtmlSelector
-    this.el = document.querySelector(this.popupHtmlSelector)
+    this.popupHtmlSelector = popupHtmlSelector 
     this.popupImage = this.el.querySelector('.popup__image')
     this.imageCaption = this.el.querySelector('.popup__caption')
     super.setEventListeners()

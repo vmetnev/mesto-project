@@ -8,17 +8,14 @@ let example = {
 }
 
 class FormValidator {
-  constructor(config, formInstance) {
+  constructor(config, formInstance) {    
     this.config = config
     this.formInstance = formInstance
     this.enableValidation() // sets event listeners
   }
 
-  enableValidation() {
-    const formList = Array.from(document.querySelectorAll(this.config.formSelector));
-    formList.forEach(formElement => {      
-      this.setValidationEventListener(formElement, this.config);
-    })
+  enableValidation() {        
+      this.setValidationEventListener(this.formInstance , this.config); 
   }
 
   setValidationEventListener(formElement) {
