@@ -16,5 +16,5 @@ class PopupWithImage extends Popup {
   }
 }
 
-
 export { PopupWithImage }
+

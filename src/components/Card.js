@@ -16,12 +16,12 @@ class Card {
       .content
       .querySelector('.elements__container')
       .cloneNode(true);
-
     return cardElement;
   }
 
   generate() {
     this._element = this._getCard();
+
     this._image = this._element.querySelector('.elements__item');
     this._likeCounter = this._element.querySelector('.elements__like-counter');
     this._likeButton = this._element.querySelector('.elements__like');

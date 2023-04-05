@@ -16,10 +16,12 @@ class FormValidator {
 
   _showError(inputElement, errorMessage) {
     const errorElement = this.formElement.querySelector(`.${inputElement.id}-error`)
+
     inputElement.classList.add(this.config.inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this.config.errorClass)
   }
+
 
   _checkInputValidity(inputElement) {
     if (inputElement.validity.valueMissing) {
@@ -30,6 +32,7 @@ class FormValidator {
       inputElement.setCustomValidity("");
     }
     if (!inputElement.validity.valid) {
+
       this._showError(inputElement, inputElement.validationMessage);
     } else {
       this._hideError(inputElement)
@@ -75,5 +78,3 @@ class FormValidator {
 }
 
 export { FormValidator }
-
-
