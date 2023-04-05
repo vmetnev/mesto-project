@@ -1,19 +1,7 @@
-const config = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-21',
-  headers: {
-    authorization: '417c23b5-d216-4c43-a497-aa05308a8288',
-    'Content-Type': 'application/json'
-  }
-}
-
 class Api {
-  constructor() {
-    this._baseUrl = config.baseUrl
-    this._headers = config.headers
-  }
-
-  _request(url, options) {
-    return fetch(url, options).then(this._getResponseData)
+  constructor(options) {
+    this._baseUrl = options.baseUrl
+    this._headers = options.headers
   }
 
   _getResponseData(res) {
@@ -25,71 +13,94 @@ class Api {
   }
 
 
-
   getUserData() {
-    return this._request(`${this._baseUrl}/users/me`, {
-      headers: this._headers
-    })
+    return fetch(`${this._baseUrl}/users/me`, {
+        headers: this._headers
+      })
+      .then((res) => {
+        return this._getResponseData(res);
+      })
   }
 
   getInitialCards() {
-    return this._request(`${this._baseUrl}/cards`, {
-      headers: this._headers
-    })
+    return fetch(`${this._baseUrl}/cards`, {
+        headers: this._headers
+      })
+      .then((res) => {
+        return this._getResponseData(res);
+      })
   }
 
   saveProfileData(nameValue, aboutValue) {
-    return this._request(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: nameValue,
-        about: aboutValue
+    return fetch(`${this._baseUrl}/users/me`, {
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+          name: nameValue,
+          about: aboutValue
+        })
       })
-    })
+      .then((res) => {
+        return this._getResponseData(res);
+      })
   }
 
   saveNewCard(placeName, placeLink) {
-    return this._request(`${this._baseUrl}/cards`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: placeName,
-        link: placeLink
+    return fetch(`${this._baseUrl}/cards`, {
+        method: 'POST',
+        headers: this._headers,
+        body: JSON.stringify({
+          name: placeName,
+          link: placeLink
+        })
       })
-    })
+      .then((res) => {
+        return this._getResponseData(res)
+      })
   }
 
   putLikeToCard(cardId) {
-    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: 'PUT',
-      headers: this._headers
-    })
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: this._headers
+      })
+      .then((res) => {
+        return this._getResponseData(res)
+      })
   }
 
   deleteLikeToCard(cardId) {
-    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+      .then((res) => {
+        return this._getResponseData(res)
+      })
   }
 
   deleteCard(cardId) {
-    return this._request(`${this._baseUrl}/cards/${cardId}`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+      .then((res) => {
+        return this._getResponseData(res)
+      })
   }
 
   changeAvatar(avatar) {
-    return this._request(`${this._baseUrl}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: avatar
-      }),
-    })
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+          avatar: avatar
+        }),
+      })
+      .then((res) => {
+        return this._getResponseData(res)
+      })
   }
 }
 
-module.exports = Api
+export { Api }

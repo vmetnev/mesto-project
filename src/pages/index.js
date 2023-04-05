@@ -1,133 +1,128 @@
-import '../pages/index.css'
+import '../pages/index.css';
+import { profileFormButton, placeFormButton, avatarFormButton, configApi, validationSettings } from '../utils/constants.js'
+import { Api } from '../components/Api.js';
+import { Section } from '../components/Section';
+import { Card } from '../components/Card.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo } from '../components/UserInfo';
+import { FormValidator } from '../components/FormValidator.js';
 
-import {
-  Card
-} from '../components/Card.js'
+const api = new Api(configApi)
+const newPromises = [api.getUserData(), api.getInitialCards()];
+const userInfo = new UserInfo({
+  userNameSelector: '.profile__title',
+  userAboutSelector: '.profile__subtitle',
+  userAvatarSelector: '.profile__avatar'
+})
 
-import {
-  UserInfo
-} from '../components/UserInfo'
-
-import {
-  FormValidator
-} from '../components/FormValidator.js'
-
-const validationSettings = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit-button',
-  inactiveButtonClass: 'form__submit-button_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__field-error_active'
-};
-
-import {
-  PopupWithForm
-} from '../components/PopupWithForm.js'
-
-
-import {
-  PopupWithImage
-} from '../components/PopupWithImage.js'
-
-const popupWithImage = new PopupWithImage('.popup__open-image')
-const popupEditProfile = new PopupWithForm('.popup__edit-profile', handleProfileFormSubmit)
-const popupAddCard = new PopupWithForm('.popup__add-card', handleNewPlaceFormSubmit)
+const popupWithImage = new PopupWithImage('.popup__open-image');
+const popupEditProfile = new PopupWithForm('.popup__edit-profile', handleProfileFormSubmit);
+const popupAddCard = new PopupWithForm('.popup__add-card', handlePlaceFormSubmit);
 const popupChangeAvatar = new PopupWithForm('.popup__avatar', handleAvatarFormSubmit)
 
-const validatorPopupEditProfile = new FormValidator(validationSettings, popupEditProfile.form)
-const validatorPopupAddCard = new FormValidator(validationSettings, popupAddCard.form)
-const validatorPopupChangeAvatar = new FormValidator(validationSettings, popupChangeAvatar.form)
 
-import Api from '../components/Api.js';
+const validatorPopupEditProfile = new FormValidator(validationSettings, popupEditProfile._form)
+const validatorPopupAddCard = new FormValidator(validationSettings, popupAddCard._form)
+const validatorPopupChangeAvatar = new FormValidator(validationSettings, popupChangeAvatar._form)
 
-const api = new Api()
-
-import Section from '../components/Section'
-
-const profileFormButton = document.querySelector('.profile__edit-button');
-const placeFormButton = document.querySelector('.profile__add-button');
-const avatarFormButton = document.querySelector('.profile__avatar-button');
-
-const newPromises = [api.getUserData(), api.getInitialCards()]
-let userId = ""
-const userInfo = new UserInfo('.profile__title', '.profile__subtitle', '.profile__avatar', api)
-let section = ""
+let section = ''
 
 Promise.all(newPromises)
   .then(([dataProfile, initialCards]) => {
-    userId = dataProfile._id
+    const userId = dataProfile._id
+
+    userInfo.setUserInfo({
+      name: dataProfile.name,
+      about: dataProfile.about,
+      avatar: dataProfile.avatar,
+      userId: userId
+    });
+
     section = new Section({
-      initialCards,
-      renderer
+      data: initialCards,
+      renderer: (item) => {
+        const card = createCard(item)
+        const cardElement = card.generate();
+        section.addItem(cardElement)
+      }
     }, '.elements__inner')
-  }).catch((err) => {
+
+    section.renderItems()
+  })
+  .catch((err) => {
     console.log(err)
-  }).finally(() => {
-    console.log('started')
   })
 
-function renderer(items) {
-  console.log(this)
-  items.forEach((item) => {
-    const cardElement = createCard(item)
-    this.addItem(cardElement) // because this appears to be a section....
-  });
-}
+
 
 function createCard(item) {
-  const card = new Card(userId, item, '.card-template', api, popupWithImage)
-  const cardElement = card.generate();
+  const cardElement = new Card({
+    itemData: item,
+    userId: userInfo.userId,
+    api: api
+  }, popupWithImage, '.card-template')
   return cardElement
 }
 
-// ######################################################################################
-
 profileFormButton.addEventListener('click', () => {
-  popupEditProfile.open()
-});
-
-function handleProfileFormSubmit(data) {
-  userInfo.setUserInfo(data).then(data => {}).catch(error => {
-    console.log(error)
-  }).finally(() => {
-    popupEditProfile.submitButton.textContent = "Сохранить"
-    popupEditProfile.close()
-    
-  })
-}
-
-// ######################################################################################
+  popupEditProfile.setInputValues(userInfo.getUserInfo())
+  popupEditProfile.open();
+})
 
 placeFormButton.addEventListener('click', () => {
   popupAddCard.open();
 })
 
-function handleNewPlaceFormSubmit(data) {
-  api.saveNewCard(data.name, data.link).then(resp => {
-    const newCard = createCard(resp)
-    section.addItem(newCard)
-  }).catch(error => {
-    console.log(error)
-  }).finally(() => {
-    popupAddCard.submitButton.textContent = "Сохранить"
-    popupAddCard.close()
-  })
-}
-
-// ######################################################################################
-
 avatarFormButton.addEventListener('click', () => {
-  popupChangeAvatar.open();
+  popupChangeAvatar.open()
 })
 
-function handleAvatarFormSubmit(data) {
-  userInfo.setAvatar(data.link).then(resp => {}).catch(error => {
-    console.log(error)
-  }).finally(() => {
-    popupChangeAvatar.submitButton.textContent = "Сохранить"
-    popupChangeAvatar.close();
-  })
+
+function handleProfileFormSubmit(data) {
+  this.submitButton.textContent = 'Сохранение...'
+  api.saveProfileData(data.name, data.about)
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      popupEditProfile.close()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      this.submitButton.textContent = 'Сохранение'
+    })
 }
 
-// ######################################################################################
+function handlePlaceFormSubmit(data) {
+  this.submitButton.textContent = 'Сохранение...'
+  api.saveNewCard(data.name, data.link)
+    .then((data) => {
+      const newCard = createCard(data)
+      const newCardElement = newCard.generate();
+      section.addItem(newCardElement);
+      popupAddCard.close()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      this.submitButton.textContent = 'Сохранение'
+    })
+}
+
+function handleAvatarFormSubmit(data) {
+  this.submitButton.textContent = 'Сохранение...'
+  api.changeAvatar(data.link)
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      popupChangeAvatar.close()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      this.submitButton.textContent = 'Сохранение'
+    })
+}
+
