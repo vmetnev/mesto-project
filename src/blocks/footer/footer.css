@@ -1,20 +1,9 @@
 .footer {
-    max-width: 880px;
-    padding: 0;
-    margin: 67px auto 60px auto;
-    box-sizing: border-box;
+  padding: 66px 0 60px;
 }
 
-@media screen and (max-width:1279px) {
-    .footer {
-        width: calc(282px + 598 * ((100vw - 320px)/960));
-    }
-}
-
-@media screen and (max-width:320px) {
-    .footer {
-        width: 282px;
-        max-width: 100%;
-        margin: 48px auto 36px auto;
-    }
+@media screen and (max-width: 1023px){
+  .footer {
+    padding: 48px 19px 36px;
+  }
 }
