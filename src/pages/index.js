@@ -30,14 +30,7 @@ let section = ''
 
 Promise.all(newPromises)
   .then(([dataProfile, initialCards]) => {
-    const userId = dataProfile._id
-
-    userInfo.setUserInfo({
-      name: dataProfile.name,
-      about: dataProfile.about,
-      avatar: dataProfile.avatar,
-      userId: userId
-    });
+    userInfo.setUserInfo(dataProfile)
 
     section = new Section({
       data: initialCards,
@@ -59,7 +52,7 @@ Promise.all(newPromises)
 function createCard(item) {
   const cardElement = new Card({
     itemData: item,
-    userId: userInfo.userId,
+    userId: userInfo._id,
     api: api
   }, popupWithImage, '.card-template')
   return cardElement
@@ -80,7 +73,7 @@ avatarFormButton.addEventListener('click', () => {
 
 
 function handleProfileFormSubmit(data) {
-  this.submitButton.textContent = 'Сохранение...'
+  popupEditProfile.renderLoading(true)
   api.saveProfileData(data.name, data.about)
     .then((data) => {
       userInfo.setUserInfo(data);
@@ -90,12 +83,12 @@ function handleProfileFormSubmit(data) {
       console.log(err)
     })
     .finally(() => {
-      this.submitButton.textContent = 'Сохранение'
+      popupEditProfile.renderLoading(false)
     })
 }
 
 function handlePlaceFormSubmit(data) {
-  this.submitButton.textContent = 'Сохранение...'
+  popupAddCard.renderLoading(true)
   api.saveNewCard(data.name, data.link)
     .then((data) => {
       const newCard = createCard(data)
@@ -107,12 +100,12 @@ function handlePlaceFormSubmit(data) {
       console.log(err)
     })
     .finally(() => {
-      this.submitButton.textContent = 'Сохранение'
+      popupAddCard.renderLoading(false)
     })
 }
 
 function handleAvatarFormSubmit(data) {
-  this.submitButton.textContent = 'Сохранение...'
+  popupChangeAvatar.renderLoading(true)
   api.changeAvatar(data.link)
     .then((data) => {
       userInfo.setUserInfo(data);
@@ -122,7 +115,7 @@ function handleAvatarFormSubmit(data) {
       console.log(err)
     })
     .finally(() => {
-      this.submitButton.textContent = 'Сохранение'
+      popupChangeAvatar.renderLoading(false)
     })
 }
 
