@@ -13,12 +13,12 @@ class UserInfo {
     }
   }
 
-  setUserInfo({ name, about, avatar, userId }) {
+  setUserInfo({ name, about, avatar, _id }) {
     this.nameElement.textContent = name;
     this.jobElement.textContent = about;
     this.avatar.src = avatar;
     this.avatar.alt = name
-    this.userId = userId
+    this._id = _id
   }
 }
 
