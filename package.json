@@ -1,7 +1,7 @@
 {
   "name": "mesto-project",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "\"My project\"",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -9,8 +9,11 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Dieeseel/mesto-project.git"
+  },
+  "author": "Artem Sobolevskiy",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -30,5 +33,9 @@
   },
   "dependencies": {
     "core-js": "^3.29.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Dieeseel/mesto-project/issues"
+  },
+  "homepage": "https://github.com/Dieeseel/mesto-project#readme"
 }

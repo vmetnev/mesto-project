@@ -1,27 +1,10 @@
 .header {
-    box-sizing: border-box;
-    max-width: 880px;
-    margin: 45px auto 0 auto;
-    border-bottom: 1px solid rgb(84, 84, 84, 0.7);
+  padding: 45px 0 0;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
 
-@media screen and (max-width:1279px) {
-    .header {
-        width: calc(320px + 560 * ((100% - 320px)/960));
-        margin-top: calc(28px + 17 * ((100% - 320px)/960));
-    }
-}
-
-@media screen and (max-width:878px) {
-    .header {
-        width: calc(282px + 598 * ((100% - 320px)/960));
-    }
-}
-
-@media screen and (max-width:320px) {
-    .header {
-        display: flex;
-        margin: 28px 0 0 0;
-        width: 100%;
-    }
+@media screen and (max-width: 767px) {
+  .header {
+    padding: 28px 0 0;
+  }
 }
